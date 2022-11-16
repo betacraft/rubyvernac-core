@@ -11,14 +11,14 @@ class LanguageParser
 
     case language
     when "ruby"
-      lineCommentString = "#"
+      line_comment_string = "#"
     else
-      lineCommentString = "//"
+      line_comment_string = "//"
     end
     lines = byte_string.split("\n")
 
     lines.each do |line|
-      if line.strip.start_with?(lineCommentString)
+      if line.strip.start_with?(line_comment_string)
           processed_string_buffer << (line + "\n")
         next
       end

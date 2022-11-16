@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    ruby-vernac-parser (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (13.0.6)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  rake (~> 13.0)
+  ruby-vernac-parser!
+
+BUNDLED WITH
+   2.3.25
