@@ -22,8 +22,9 @@ class KeywordParser
     rescue => err
       print "Error running script- #{err}"
       return
+    ensure
+      File.delete(temp_file_path) if File.exist?(temp_file_path)
     end
-    File.delete(temp_file_path)
 
     print "Script Output - \n#{output}"
   end
@@ -84,8 +85,7 @@ class KeywordParser
     def temp_file_path
       @temp_file_path ||= (
         file_path = "#{args[0]}.tmp"
-        File.delete(file_path) if File.exist?(file_path)
-        File.open(file_path, 'w') { |file| file.write(parsed_string) }
+        File.open(file_path, 'w') { |file| file.write(parsed_string) } rescue nil
         file_path
       )
     end
