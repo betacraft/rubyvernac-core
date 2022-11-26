@@ -35,60 +35,60 @@ class KeywordParser
 
   private
 
-    def validate_args
-      if args.size != 3
-        print "Arguments - parser source_file language keywords_file\n"
-        raise
+  def validate_args
+    if args.size != 3
+      print "Arguments - parser source_file language keywords_file\n"
+      raise
+    end
+  end
+
+  def read_input_file
+    begin
+      @input_bytes = File.read(args[0])
+    rescue => err
+      print "Error reading input file, #{err}\n"
+      raise
+    end
+  end
+
+  def read_keywords
+    begin
+      file = File.open(args[2])
+      file.readlines.map(&:chomp).each do |line|
+        fields = line.split(" ")
+        next if fields.size != 2
+        @keywords[fields[0]] = fields[1]
       end
+    rescue => err
+      print "Error reading keywords #{err}\n"
+      raise
     end
+  end
 
-    def read_input_file
-      begin
-        @input_bytes = File.read(args[0])
-      rescue => err
-        print "Error reading input file, #{err}\n"
-        raise
-      end
-    end
+  def parsed_string
+    @parsed_string ||= LanguageParser.run(
+                          byte_string: input_bytes,
+                          keywords: keywords,
+                          language: args[1]
+                        )
+  end
 
-    def read_keywords
-      begin
-        file = File.open(args[2])
-        file.readlines.map(&:chomp).each do |line|
-          fields = line.split(" ")
-          next if fields.size != 2
-          @keywords[fields[0]] = fields[1]
-        end
-      rescue => err
-        print "Error reading keywords #{err}\n"
-        raise
-      end
-    end
+  def command
+    @command ||=   case args[1]
+                    when "ruby"
+                      "ruby"
+                    else
+                      "run"
+                    end
+  end
 
-    def parsed_string
-      @parsed_string ||= LanguageParser.run(
-                            byte_string: input_bytes,
-                            keywords: keywords,
-                            language: args[1]
-                          )
-    end
-
-    def command
-      @command ||=   case args[1]
-                      when "ruby"
-                        "ruby"
-                      else
-                        "run"
-                      end
-    end
-
-    def temp_file_path
-      @temp_file_path ||= (
-        file_path = "#{args[0]}.tmp"
-        File.open(file_path, 'w') { |file| file.write(parsed_string) } rescue nil
-        file_path
-      )
-    end
+  def temp_file_path
+    @temp_file_path ||= (
+      file_path = "#{args[0]}.tmp"
+      File.open(file_path, 'w') { |file| file.write(parsed_string) } rescue nil
+      file_path
+    )
+  end
 
 end
 
