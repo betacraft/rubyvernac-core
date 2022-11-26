@@ -46,7 +46,6 @@ class LanguageParser
         if quotes%2 == 0 &&
            single_quote%2 == 0 &&
            block_comment_start == block_comment_end
-          
           keyword = keywords[field]
           if !(keyword.nil? || keyword.empty?)
 
@@ -65,12 +64,12 @@ class LanguageParser
               @class_names << field
               check_for_class_name = false
               @processed_string_buffer << field
-              
+
               next
             end
             found = false
             keywords.each do |k, v|
-              if field.include? k
+              if (field.include?(k) && k.size > 1)
                 field[k] = v
                 found = true
               end

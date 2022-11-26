@@ -34,3 +34,4 @@ untill
 when
 while
 yield
+puts

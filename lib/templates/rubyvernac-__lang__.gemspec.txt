@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = ""
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = `git ls-files -z -o --exclude-standard | xargs -0`.split(" ")
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.6"
