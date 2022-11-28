@@ -1,3 +1,6 @@
+__ENCODING__
+__LINE__
+__FILE__
 BEGIN
 END
 alias
@@ -7,9 +10,10 @@ break
 case
 class
 def
+defined?
 do
 else
-elseif
+elsif
 end
 ensure
 false
@@ -29,8 +33,9 @@ self
 super
 then
 true
+undef
 unless
-untill
+until
 when
 while
 yield
