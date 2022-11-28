@@ -67,18 +67,19 @@ class LanguageParser
 
               next
             end
-            found = false
-            keywords.each do |k, v|
-              if (field.include?(k) && k.size > 1)
-                field[k] = v
-                found = true
-              end
-            end
+            ## This step is redundant
+            # found = false
+            # keywords.each do |k, v|
+            #   if (field.include?(k) && k.size > 1)
+            #     field[k] = v
+            #     found = true
+            #   end
+            # end
 
-            if found
-              @processed_string_buffer << (field + " ")
-              next
-            end
+            # if found
+            #   @processed_string_buffer << (field + " ")
+            #   next
+            # end
           end
         end
         if index == (fields.size - 1)
