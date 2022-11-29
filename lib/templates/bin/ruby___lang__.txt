@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+`bundle install`
 require "bundler"
 Bundler.setup(:default)
 require "ruby-vernac-parser"
