@@ -1,4 +1,4 @@
-# Rubyvernac::Malayalam
+# Rubyvernac::__Lang__
 
 
 The idea was to enable writing Ruby in various spoken languages. 
