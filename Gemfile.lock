@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    ruby-vernac-parser (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -62,6 +67,7 @@ DEPENDENCIES
   fileutils (~> 1.6)
   google-cloud-translate-v3 (~> 0.5.0)
   rake (~> 10.3.2)
+  ruby-vernac-parser!
   yaml (~> 0.2.0)
 
 BUNDLED WITH
