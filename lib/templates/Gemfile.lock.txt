@@ -1,7 +1,13 @@
+GIT
+  remote: git@github.com:betacraft/ruby-vernac-parser.git
+  revision: 268f41c01050c21b5edcd9b33126d5eefa13d211
+  specs:
+    ruby-vernac-parser (0.0.1)
+
 PATH
   remote: .
   specs:
-    rubyvernac-malayalam (0.0.1)
+    rubyvernac-__lang__ (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -15,14 +21,14 @@ GEM
     yaml (0.2.0)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
-  bundler (~> 1.6)
   pry (~> 0.14.1)
   rake (~> 10.3.2)
-  rubyvernac-malayalam!
+  ruby-vernac-parser!
+  rubyvernac-__lang__!
   yaml (~> 0.2.0)
 
 BUNDLED WITH
-   1.17.3
+   2.3.25

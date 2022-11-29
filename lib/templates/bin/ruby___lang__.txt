@@ -1,12 +1,17 @@
 #!/usr/bin/env ruby
-
+require "bundler"
+Bundler.setup(:default)
 require "ruby-vernac-parser"
 
-spec = Gem::Specification.find_by_name("rubyvernac-__lang__")
-keyword_file_path = spec.gem_dir + "/lib/translations/keywords.txt"
+if ARGV.size < 1
+  print "Provide a script file\n"
+else
+  spec = Gem::Specification.find_by_name("rubyvernac-__lang__")
+  keyword_file_path = spec.gem_dir + "/lib/translations/keywords.txt"
 
-parser = RubyVernacParser.new(source_file: ARGV[0],
-  keywords_file: keyword_file_path
-)
+  parser = RubyVernacParser.new(source_file: ARGV[0],
+    keywords_file: keyword_file_path
+  )
 
-parser.execute
+  parser.execute
+end
