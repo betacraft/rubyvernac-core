@@ -44,8 +44,8 @@ class Translations
 
   def handle_transilation_files
     # class_names = ObjectSpace.each_object(Class).map(&:name) # Will be a heavy execution
-    # class_names = ["Array", "Class", "Object", "Integer", "Math"]
-    class_names = ["Array"]
+    class_names = ["Array", "Class", "Object", "Integer", "Math"]
+    # class_names = ["Array"]
 
     class_names.each do |cname|
       class_name = eval(cname) # Note: Fixnum -> Integer
