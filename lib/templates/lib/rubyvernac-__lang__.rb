@@ -60,6 +60,8 @@ Dir.glob(gem_lib+'/translations/*.yml').each do |filepath|
   content.first.last['iprmethods'].each do |k, v|
     #puts "synching -- #{k} to #{v}"
     begin
+
+      next if k.to_sym == :respond_to_missing?
       Object.class_eval(class_name).send(:alias_method, v.to_sym,k.to_sym) unless
                                                     v.chop.length.zero?
     rescue Exception => e

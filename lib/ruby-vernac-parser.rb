@@ -15,14 +15,14 @@ class RubyVernacParser
       read_input_file
       read_keywords
     rescue
-      # Do nothing and stop execution
+      @error = true # Do nothing and stop execution
     end
   end
 
   def execute
-
+    return if @error
     if source_file.nil? || keywords_file.nil?
-      raise "Arguments - source_file, language, keywords_file\n"
+      raise "Arguments - source_file, keywords_file\n"
     end
 
     # running script
@@ -39,6 +39,7 @@ class RubyVernacParser
   end
 
   def parse
+    return if @error
     print "Parsed code -\n#{parsed_string}"
   end
 
