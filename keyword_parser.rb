@@ -4,6 +4,7 @@ arg = ARGV
 RubyVernacParser.new(
   source_file: arg[0],
   language: arg[1],
-  keywords_file: arg[2]
+  keywords_file: arg[2],
+  message_text: true
 ).execute
 

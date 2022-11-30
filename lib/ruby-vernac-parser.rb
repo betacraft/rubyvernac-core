@@ -1,12 +1,14 @@
 require_relative "./parser/language_parser"
 
 class RubyVernacParser
-  attr_reader :keywords, :input_bytes,
+  attr_reader :keywords, :input_bytes, :message_text
               :source_file, :language, :keywords_file
 
-  def initialize(source_file: nil, language: "ruby", keywords_file: nil)
+  def initialize(source_file: nil, language: "ruby",
+                 keywords_file: nil, message_text: false)
     # @args = ARGV
     @source_file = source_file
+    @message_text = message_text
     @language = language
     @keywords_file = keywords_file
     @keywords = {}
@@ -34,8 +36,8 @@ class RubyVernacParser
     ensure
       File.delete(temp_file_path) if File.exist?(temp_file_path)
     end
-
-    print "Script Output - \n#{output}"
+    print "Script Output - \n" if message_text
+    print "#{output}"
   end
 
   def parse
