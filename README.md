@@ -19,7 +19,7 @@ Install dependencies:
     parser.execute #Execute the parsed script
    ```
 
-## Generate language transilation gem
+## Generate language translation gem
 
     ruby language_gem_generator.rb
 
