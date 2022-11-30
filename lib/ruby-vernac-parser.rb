@@ -1,7 +1,7 @@
 require_relative "./parser/language_parser"
 
 class RubyVernacParser
-  attr_reader :keywords, :input_bytes, :message_text
+  attr_reader :keywords, :input_bytes, :message_text,
               :source_file, :language, :keywords_file
 
   def initialize(source_file: nil, language: "ruby",
