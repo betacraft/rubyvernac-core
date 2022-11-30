@@ -60,9 +60,9 @@ class GemCreator
       end
       new_file = File.open(new_file_path, "w") {|f| f.write(content) }
     end
-    puts `chmod a+x "#{dir_path}"bin/ruby-#{language}`
+    `chmod a+x "#{dir_path}"/bin/ruby_#{language}`
     Dir.chdir(dir_path) do
-      puts `git init`
+      `git init`
     end
   end
 
