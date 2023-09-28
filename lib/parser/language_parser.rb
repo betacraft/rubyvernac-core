@@ -46,7 +46,7 @@ class LanguageParser
         if quotes%2 == 0 &&
            single_quote%2 == 0 &&
            block_comment_start == block_comment_end
-          keyword = keywords[field]
+          keyword = keywords[field]&.to_s
           if !(keyword.nil? || keyword.empty?)
 
             if index == (fields.size - 1)

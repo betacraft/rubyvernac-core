@@ -16,7 +16,7 @@ class Translations
 
     print "\n\nGetting translations\n"
     print "== Please wait this will take some time ==\n"
-    thread_1 = Thread.new{handle_transilation_files}
+    thread_1 = Thread.new{handle_translation_files}
     thread_2 = Thread.new{handle_keywords_file}
     spinner(thread_1, thread_2)
     thread_1.join
@@ -42,7 +42,7 @@ class Translations
     File.open("#{dir_path}/keywords.txt", "w") {|f| f.write(content) }
   end
 
-  def handle_transilation_files
+  def handle_translation_files
     # class_names = ObjectSpace.each_object(Class).map(&:name) # Will be a heavy execution
     class_names = ["Array", "Class", "Object", "Integer", "Math"]
     # class_names = ["Array"]
