@@ -26,7 +26,7 @@ class LanguageParser
 
     lines.each do |line|
       if line.strip.start_with?(line_comment_string)
-          @processed_string_buffer << (line + "\n")
+        @processed_string_buffer << (line + "\n")
         next
       end
       fields = line.split(" ")

@@ -69,7 +69,9 @@ class RubyVernacParser
       file.readlines.map(&:chomp).each do |line|
         fields = line.split(" ")
         next if fields.size != 2
-        @keywords[fields[0]] = fields[1]
+
+        keyword_in_eng, keyword_in_non_eng = fields
+        @keywords[keyword_in_eng] = keyword_in_non_eng
       end
     rescue => err
       print "Error reading keywords #{err}\n"
