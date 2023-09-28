@@ -11,6 +11,6 @@ gem "dotenv", "~> 2.8"
 
 gem "google-cloud-translate-v3", "~> 0.5.0"
 
-gem "yaml", "~> 0.2.0"
+gem "yaml", "~> 0.2"
 
 gem "fileutils", "~> 1.6"

@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative "./parser/language_parser"
 
 class RubyVernacParser
@@ -23,6 +24,7 @@ class RubyVernacParser
 
   def execute
     return if @error
+
     if source_file.nil? || keywords_file.nil?
       raise "Arguments - source_file, keywords_file\n"
     end
@@ -55,28 +57,20 @@ class RubyVernacParser
   end
 
   def read_input_file
-    begin
-      @input_bytes = File.read(source_file)
-    rescue => err
-      print "Error reading input file, #{err}\n"
-      raise
-    end
+    @input_bytes = File.read(source_file)
+  rescue => err
+    print "Error reading input file, #{err}\n"
+    raise
   end
 
   def read_keywords
-    begin
-      file = File.open(keywords_file)
-      file.readlines.map(&:chomp).each do |line|
-        fields = line.split(" ")
-        next if fields.size != 2
-
-        keyword_in_eng, keyword_in_non_eng = fields
-        @keywords[keyword_in_eng] = keyword_in_non_eng
-      end
-    rescue => err
-      print "Error reading keywords #{err}\n"
-      raise
+    inverted_mapping = YAML.load_file(keywords_file)
+    inverted_mapping.each do |in_eng, in_non_eng|
+      @keywords[in_non_eng] = in_eng
     end
+  rescue => err
+    print "Error reading keywords #{err}\n"
+    raise
   end
 
   def parsed_string
