@@ -1,7 +1,7 @@
 require "google/cloud/translate/v3"
 require 'dotenv/load'
 
-module Translations
+module Translator
   class GoogleTranslatorApi
 
     def initialize(target_language_code)

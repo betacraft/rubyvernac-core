@@ -1,4 +1,4 @@
-module Translations
+module Translator
   class FileBasedTranslator
 
     def initialize(lang_code: , dir_path:, input_file:, output_file:)

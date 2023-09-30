@@ -1,6 +1,6 @@
 require 'yaml'
 
-module Translations
+module Translator
   class LanguageBasedTranslator
     CONFIG = {
       classes: ["Array", "Class", "Object", "Integer", "Math"],

@@ -1,6 +1,9 @@
 require 'yaml'
 require 'dotenv/load'
 require "google/cloud/translate/v3"
+require 'pry-nav'
+
+require_relative 'translator/stubbed_translator_api.rb'
 
 class Translations
   attr_reader :language, :lang_code, :dir_path
@@ -16,11 +19,14 @@ class Translations
 
     print "\n\nGetting translations\n"
     print "== Please wait this will take some time ==\n"
-    thread_1 = Thread.new{handle_transilation_files}
-    thread_2 = Thread.new{handle_keywords_file}
-    spinner(thread_1, thread_2)
-    thread_1.join
-    thread_2.join
+    # thread_1 = Thread.new{handle_transilation_files}
+    # thread_2 = Thread.new{handle_keywords_file}
+    # spinner(thread_1, thread_2)
+    # thread_1.join
+    # thread_2.join
+
+    handle_transilation_files
+    handle_keywords_file
   end
 
   private
@@ -98,30 +104,35 @@ class Translations
   end
 
   def translate(word)
-    begin
-      request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
-        contents: ["#{word}"], source_language_code: "en",
-        target_language_code: lang_code, parent: ENV["GOOGLE_PROJECT_ID"])
-      response = google_client.translate_text request
-      str = response.translations.first&.translated_text || ""
-    rescue Exception => e
-      puts e.message
-      str = ''
-    end
+    @stubbed ||= Translator::StubbedTranslatorApi.new
 
-    #replace spaces - 
-    str = str.gsub(/ |\./, '_')
+    @stubbed.translate(word) || ""
+    # begin
+    #   request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
+    #     contents: ["#{word}"], source_language_code: "en",
+    #     target_language_code: lang_code, parent: ENV["GOOGLE_PROJECT_ID"] || 'big-cumulus-369512')
+    #   response = google_client.translate_text request
+    #   str = response.translations.first&.translated_text || ""
+    # rescue Exception => e
+    #   puts e.message
+    #   str = ''
+    # end
 
-    # # return none if it's only latin - 
-    # !!str.match(/^[a-zA-Z0-9_\-+? ]*$/) ?
-    #   '' :
-    #   str
+    # #replace spaces -
+    # str = str.gsub(/ |\./, '_')
 
-    str
+    # # # return none if it's only latin -
+    # # !!str.match(/^[a-zA-Z0-9_\-+? ]*$/) ?
+    # #   '' :
+    # #   str
+
+    # str
   end
 
   def google_client
-    @google_client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new
+    @google_client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new do |config|
+      config.credentials = "/home/ashish/gcp/keyfile.json"
+    end
   end
 
   def spinner(thread_1, thread_2)

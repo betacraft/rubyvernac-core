@@ -1,8 +1,8 @@
 require_relative 'file_based_translator.rb'
 require_relative 'language_based_translator.rb'
 
-module Translations
-  class Translator
+module Translator
+  class Main
 
     def initialize(language: nil, lang_code: nil)
       @language = language
