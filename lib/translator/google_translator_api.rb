@@ -1,12 +1,16 @@
 require "google/cloud/translate/v3"
 require 'dotenv/load'
 
+require_relative 'stubbed_translator_api.rb'
+
 module Translator
   class GoogleTranslatorApi
 
     def initialize(target_language_code)
       @target_language_code = target_language_code
-      @client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new
+      @client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new do |config|
+        config.credentials = "/home/ashish/gcp/keyfile.json"
+      end
     end
 
     def translate(word)
@@ -28,6 +32,11 @@ module Translator
       #   translated_word
 
       translated_word
+    end
+
+    def stubbed_translation(word)
+      @stubbed ||= Translator::StubbedTranslatorApi.new
+      @stubbed.translate(word) || ""
     end
 
     private

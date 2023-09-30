@@ -1,4 +1,5 @@
 require 'yaml'
+require_relative 'google_translator_api.rb'
 
 module Translator
   class LanguageBasedTranslator
@@ -12,9 +13,9 @@ module Translator
       }
     }.freeze
 
-    def initialize(lang_code: , dir_path:)
+    def initialize(lang_code: , translations_path:)
       @google_translator = GoogleTranslatorApi.new(lang_code)
-      @dir_path = dir_path
+      @translations_path = translations_path
     end
 
     def generate_translations
@@ -48,7 +49,7 @@ module Translator
       end
 
       def output_file
-        File.expand_path("#{dir_path}/#{class_name.name.downcase}.yml")
+        File.expand_path("#{translations_path}/#{class_name.name.downcase}.yml")
       end
 
   end

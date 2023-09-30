@@ -6,14 +6,14 @@ module Translator
 
     def initialize(language: nil, lang_code: nil)
       @language = language
-      dir_path = File.expand_path("../../new_gems/rubyvernac-#{language}/lib/translations", __FILE__)
+      translations_path = Dir.pwd + "/new_gems/rubyvernac-#{language}/lib/translations"
 
-      @language_based_translator = LanguageBasedTranslator.new(lang_code: lang_code, dir_path: dir_path)
+      @language_based_translator = LanguageBasedTranslator.new(lang_code: lang_code, translations_path: translations_path)
       @file_based_translator = FileBasedTranslator.new(
         lang_code: lang_code,
-        dir_path: dir_path,
-        input_file: "#{dir_path}/keywords.txt",
-        output_file: "#{dir_path}/keywords.txt"
+        translations_path: translations_path,
+        input_file: "keywords.txt",
+        output_file: "keywords.txt"
       )
     end
 
@@ -25,7 +25,7 @@ module Translator
       thread_1 = Thread.new{@file_based_translator.process_file}
       thread_2 = Thread.new{@language_based_translator.generate_translations}
 
-      display_spinner(thread_1, thread_2)
+      display_spinner([ thread_1, thread_2 ])
 
       thread_1.join
       thread_2.join

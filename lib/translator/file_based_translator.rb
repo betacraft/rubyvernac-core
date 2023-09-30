@@ -1,11 +1,11 @@
 module Translator
   class FileBasedTranslator
 
-    def initialize(lang_code: , dir_path:, input_file:, output_file:)
+    def initialize(lang_code: , translations_path:, input_file:, output_file:)
       @google_translator = GoogleTranslatorApi.new(lang_code)
 
-      @input_file = File.open("#{dir_path}/#{input_file}")
-      @output_file = File.open("#{dir_path}/#{output_file}")
+      @input_file = File.open("#{translations_path}/#{input_file}")
+      @output_file = File.open("#{translations_path}/#{output_file}")
     end
 
     def process_file
@@ -38,7 +38,7 @@ module Translator
       def write_to_output_file(translated_keywords)
         content = translated_keywords.join("\n")
 
-        File.open("#{dir_path}/#{output_file}", "w") {|f| f.write(content) }
+        File.open("#{translations_path}/#{output_file}", "w") {|f| f.write(content) }
       end
 
   end

@@ -1,9 +1,9 @@
 require 'yaml'
 require 'pry-nav'
 require "fileutils"
-require_relative './translations'
+require_relative '../translator/main'
 
-class GemCreator
+class LanguageGemGenerator
   attr_reader :language, :author_name, :author_email
 
   def initialize(language: "", author_name: "", author_email: "")
@@ -30,7 +30,7 @@ class GemCreator
   private
 
   def get_translations
-    Translations.new(language: language, lang_code: @language_code).run
+    Translator::Main.new(language: language, lang_code: @language_code).generate_translations
   end
 
   def validate_language
@@ -40,11 +40,9 @@ class GemCreator
   end
 
   def generate_files
-    binding.pry
-    relavtive_dir_path = "new_gems/rubyvernac-#{language}"
-    FileUtils::mkdir_p relavtive_dir_path if !Dir.exist? relavtive_dir_path
-    dir_path = File.expand_path("../../#{relavtive_dir_path}", __FILE__)
-    Dir.glob(File.expand_path('../templates/**/**', __FILE__)).each do |file_path|
+    dir_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"
+    FileUtils::mkdir_p dir_path if !Dir.exist? dir_path
+    Dir.glob(File.expand_path('lib/templates/**/**')).each do |file_path|
       next if !File.file?(file_path)
       file = File.open(file_path)
       file_name = update_lang(
@@ -52,7 +50,7 @@ class GemCreator
                      .gsub(".txt", "")
                      .gsub(".text", ".txt")
                      .gsub("_hidden_", "")
-                     .gsub(File.expand_path('../templates/', __FILE__), "")
+                     .gsub(File.expand_path('lib/templates/'), "")
                   )
       content = update_lang(file.read)
       new_file_path = "#{dir_path}#{file_name}"
