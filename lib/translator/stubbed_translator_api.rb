@@ -1,6 +1,5 @@
 require "google/cloud/translate/v3"
 require 'dotenv/load'
-require 'pry-nav'
 
 module Translator
   class StubbedTranslatorApi

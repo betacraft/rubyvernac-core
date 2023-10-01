@@ -1,5 +1,5 @@
 require 'yaml'
-require_relative 'google_translator_api.rb'
+require_relative 'google_translator_api'
 
 module Translator
   class LanguageBasedTranslator

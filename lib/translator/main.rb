@@ -1,5 +1,5 @@
-require_relative 'file_based_translator.rb'
-require_relative 'language_based_translator.rb'
+require_relative 'file_based_translator'
+require_relative 'language_based_translator'
 
 module Translator
   class Main

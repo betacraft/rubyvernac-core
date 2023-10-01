@@ -1,7 +1,7 @@
 require "google/cloud/translate/v3"
 require 'dotenv/load'
 
-require_relative 'stubbed_translator_api.rb'
+require_relative 'stubbed_translator_api'
 
 module Translator
   class GoogleTranslatorApi
