@@ -1,7 +1,9 @@
-require 'yaml'
 require 'pry-nav'
 require "fileutils"
+
 require_relative '../translator/main'
+require_relative 'language_codes'
+require_relative '../exceptions/language_not_available_exception'
 
 class LanguageGemGenerator
   attr_reader :language, :author_name, :author_email
@@ -10,34 +12,26 @@ class LanguageGemGenerator
     @language = language.downcase
     @author_name = author_name
     @author_email = author_email
-    @errors = []
-    validate_language
+
+    @language_codes = LanguageCodes.new
   end
 
 
   def generate
-    if !@errors.empty?
-      puts @errors
-      return
-    end
+    lang_code = @language_codes.find_code(language)
 
     generate_files
-    get_translations
+
+    translator = Translator::Main.new(language: language, lang_code: lang_code)
+    translator.generate_translations
+
     print "\n The new gem can be found in 'new_gems' folder\n"
     # FileUtils.mv('/tmp/your_file', '/opt/new/location/your_file') # To move the output folder
+  rescue LanguageNotAvailableException => e
+    puts e.message
   end
 
   private
-
-  def get_translations
-    Translator::Main.new(language: language, lang_code: @language_code).generate_translations
-  end
-
-  def validate_language
-    available_languages = YAML::load_file("lib/available_languages.yml")
-    @language_code = available_languages[language]
-    @errors << "Language not found" if @language_code.nil?
-  end
 
   def generate_files
     dir_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"

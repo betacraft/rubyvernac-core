@@ -40,7 +40,6 @@ class GemCreator
   end
 
   def generate_files
-    binding.pry
     relavtive_dir_path = "new_gems/rubyvernac-#{language}"
     FileUtils::mkdir_p relavtive_dir_path if !Dir.exist? relavtive_dir_path
     dir_path = File.expand_path("../../#{relavtive_dir_path}", __FILE__)
