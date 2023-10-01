@@ -1,5 +1,4 @@
 require_relative "./lib/generators/language_gem_generator"
-require_relative "./lib/gem_creator.rb"
 
 print "Ruby Vernac Language Gem Generator\n"
 # print "Enter author name: "
@@ -10,7 +9,6 @@ print "Enter prefered language: "
 selected_language = gets.chomp()
 
 LanguageGemGenerator.new(
-# GemCreator.new(
   language: selected_language,
   # author_email: author_email,
   # author_name: author_name
