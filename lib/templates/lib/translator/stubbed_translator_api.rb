@@ -15,6 +15,7 @@ module Translator
     def build_translation_mappings
       mappings = {}
       Dir.children('lib/stubs').each do |file|
+        next if file == 'keywords.yml'
         stub = YAML.load_file("lib/stubs/#{file}")
 
         klass = file.split('.')[0]
@@ -23,6 +24,9 @@ module Translator
           mappings.merge!(stub[klass][key])
         end
       end
+
+      keywords_stub = YAML.load_file("lib/stubs/keywords.yml")
+      mappings.merge!(keywords_stub)
 
       mappings
     end
