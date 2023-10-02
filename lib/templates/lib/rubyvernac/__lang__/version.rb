@@ -1,5 +1,5 @@
 module Rubyvernac
-  module __Lang__
+  module Hindi
     VERSION = "0.0.1"
   end
 end

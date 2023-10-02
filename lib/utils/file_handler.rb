@@ -8,11 +8,14 @@ class FileHandler
     end
   end
 
-  def list_files(rel_path)
-    Dir.glob(File.expand_path(rel_path))
+  def list_files(abs_path)
+    path_regex = File.join(abs_path, '/**/**')
+    all_paths = Dir.glob(File.expand_path(path_regex))
+
+    all_paths.select { |path| is_file?(path) }
   end
 
-  def file_exists?(abs_path)
+  def is_file?(abs_path)
     File.file?(abs_path)
   end
 
@@ -31,6 +34,12 @@ class FileHandler
   def write_to_file(abs_path, content)
     File.open(abs_path, "w") do |f|
       f.write(content)
+    end
+  end
+
+  def append_to_file(abs_path, content)
+    File.open(abs_path, 'w+') do |f|
+      f.write( content.to_yaml )
     end
   end
 

@@ -1,5 +1,7 @@
 require 'yaml'
+
 require_relative 'google_translator_api'
+require_relative '../utils/file_handler'
 
 module Translator
   class LanguageBasedTranslator
@@ -28,29 +30,17 @@ module Translator
         content[klass.name.downcase]['cname'] = @google_translator.translate(klass.name)
 
         CONFIG[:methods].each do |method, key|
-          class_name.send(method).sort.each do |method_name|
-            content[class_name.name.downcase][key] = content[class_name.name.downcase]['cprmethods'] || {}
+          klass.send(method).sort.each do |method_name|
+            class_name = klass.name.downcase
 
-            content[class_name.name.downcase][key][method_name.to_s] =
-              @google_translator.translate(method_name.to_s)
+            content[class_name][key] = content[class_name][key] || {}
+            content[class_name][key][method_name.to_s] = @google_translator.translate(method_name.to_s)
           end
         end
 
-        append_to_output_file
+        @file_handler.append_to_file("#{@translations_path}/#{class_name}.yml", content)
       end
     end
-
-    private
-
-      def append_to_output_file(content)
-        File.open(output_file, 'w+') do |f|
-          f.write( content.to_yaml )
-        end
-      end
-
-      def output_file
-        File.expand_path("#{translations_path}/#{class_name.name.downcase}.yml")
-      end
 
   end
 end

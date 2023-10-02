@@ -20,7 +20,7 @@ module Translator
         translated_word = response.translations.first&.translated_text || ""
       rescue Exception => e
         puts e.message
-        str = ''
+        translated_word = ''
       end
 
       #replace spaces -
