@@ -31,6 +31,7 @@ class TemplateGenerator
         dir_path_in_gem = template_file_path.gsub(TEMPLATE_FILES_PATH, @generated_gem_path)
 
         template_dirname = File.dirname(dir_path_in_gem)
+        template_dirname = inject_lang_name(template_dirname)
         @file_handler.make_dir_if_not_exists(template_dirname)
 
         template_file_path_in_gem = "#{template_dirname}/#{template_filename}"
