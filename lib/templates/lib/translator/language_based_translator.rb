@@ -1,7 +1,5 @@
 require 'yaml'
-
 require_relative 'google_translator_api'
-require_relative '../utils/file_handler'
 
 module Translator
   class LanguageBasedTranslator
@@ -26,7 +24,7 @@ module Translator
     def generate_translations
       CONFIG[:classes].each do |klass|
         klass = eval(klass) # Note: Fixnum -> Integer
-        content = Hash.new
+        content = {}
         class_name = klass.name.downcase
 
         # place to keep class's name -
@@ -40,7 +38,10 @@ module Translator
           end
         end
 
-        @file_handler.append_to_file("#{@translations_path}/#{class_name}.yml", content)
+        translation_path = "#{@translations_path}/#{class_name}.yml"
+        File.open(translation_path, 'w+') do |f|
+          f.write( content.to_yaml )
+        end
       end
     end
 

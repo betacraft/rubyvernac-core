@@ -18,7 +18,7 @@ module Translator
 
     def initialize
       @client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new do |config|
-        config.credentials = ENV["KEYFILE_PATH"]
+        config.credentials = ENV["KEYFILE_PATH"] || "/home/ashish/gcp/keyfile.json"
       end
     end
 
