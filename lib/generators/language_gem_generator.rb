@@ -1,5 +1,3 @@
-require 'pry-nav'
-
 require_relative '../translator/main'
 require_relative 'language_codes'
 require_relative 'template_generator'

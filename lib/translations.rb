@@ -1,7 +1,6 @@
 require 'yaml'
 require 'dotenv/load'
 require "google/cloud/translate/v3"
-require 'pry-nav'
 
 class Translations
   attr_reader :language, :lang_code, :dir_path
@@ -17,14 +16,11 @@ class Translations
 
     print "\n\nGetting translations\n"
     print "== Please wait this will take some time ==\n"
-    # thread_1 = Thread.new{handle_transilation_files}
-    # thread_2 = Thread.new{handle_keywords_file}
-    # spinner(thread_1, thread_2)
-    # thread_1.join
-    # thread_2.join
-
-    handle_transilation_files
-    handle_keywords_file
+    thread_1 = Thread.new{handle_transilation_files}
+    thread_2 = Thread.new{handle_keywords_file}
+    spinner(thread_1, thread_2)
+    thread_1.join
+    thread_2.join
   end
 
   private
@@ -105,7 +101,7 @@ class Translations
     begin
       request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
         contents: ["#{word}"], source_language_code: "en",
-        target_language_code: lang_code, parent: ENV["GOOGLE_PROJECT_ID"] || 'big-cumulus-369512')
+        target_language_code: lang_code, parent: ENV["GOOGLE_PROJECT_ID"])
       response = google_client.translate_text request
       str = response.translations.first&.translated_text || ""
     rescue Exception => e

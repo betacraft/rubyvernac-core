@@ -1,5 +1,4 @@
 require 'yaml'
-require 'pry-nav'
 require "fileutils"
 require_relative './translations'
 
