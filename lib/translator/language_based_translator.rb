@@ -16,8 +16,10 @@ module Translator
     }.freeze
 
     def initialize(lang_code: , translations_path:)
-      @google_translator = GoogleTranslatorApi.new(lang_code)
+      @lang_code = lang_code
       @translations_path = translations_path
+
+      @google_translator = GoogleTranslatorApi.instance
     end
 
     def generate_translations
@@ -27,14 +29,14 @@ module Translator
 
         # place to keep class's name -
         content[klass.name.downcase] = content[klass.name.downcase] || {}
-        content[klass.name.downcase]['cname'] = @google_translator.translate(klass.name)
+        content[klass.name.downcase]['cname'] = @google_translator.translate(klass.name, @lang_code)
 
         CONFIG[:methods].each do |method, key|
           klass.send(method).sort.each do |method_name|
             class_name = klass.name.downcase
 
             content[class_name][key] = content[class_name][key] || {}
-            content[class_name][key][method_name.to_s] = @google_translator.translate(method_name.to_s)
+            content[class_name][key][method_name.to_s] = @google_translator.translate(method_name.to_s, @lang_code)
           end
         end
 

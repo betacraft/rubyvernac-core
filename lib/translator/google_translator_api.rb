@@ -5,17 +5,28 @@ require_relative 'stubbed_translator_api'
 
 module Translator
   class GoogleTranslatorApi
+    @instance_mutex = Mutex.new
+    private_class_method :new
 
-    def initialize(target_language_code)
-      @target_language_code = target_language_code
+    def self.instance
+      return @instance if @instance
+
+      @instance_mutex.synchronize do
+        @instance ||= new
+      end
+
+      @instance
+    end
+
+    def initialize
       @client ||= ::Google::Cloud::Translate::V3::TranslationService::Client.new do |config|
-        config.credentials = "/home/ashish/gcp/keyfile.json"
+        config.credentials = ENV["KEYFILE_PATH"]
       end
     end
 
-    def translate(word)
+    def translate(word, target_language_code)
       begin
-        response = make_translate_text_request(word)
+        response = make_translate_text_request(word, target_language_code)
 
         translated_word = response.translations.first&.translated_text || ""
       rescue Exception => e
@@ -40,11 +51,11 @@ module Translator
     end
 
     private
-      def make_translate_text_request(word)
+      def make_translate_text_request(word, target_language_code)
         request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
           contents: ["#{word}"],
           source_language_code: :en,
-          target_language_code: @target_language_code,
+          target_language_code: target_language_code,
           parent: ENV["GOOGLE_PROJECT_ID"]
         )
         response = @client.translate_text(request)

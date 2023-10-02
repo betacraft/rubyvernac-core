@@ -2,7 +2,8 @@ module Translator
   class FileBasedTranslator
 
     def initialize(lang_code: , translations_path:, input_file:, output_file:)
-      @google_translator = GoogleTranslatorApi.new(lang_code)
+      @lang_code = lang_code
+      @google_translator = GoogleTranslatorApi.instance
 
       @input_file = File.open("#{translations_path}/#{input_file}")
       @output_file = File.open("#{translations_path}/#{output_file}")
@@ -23,14 +24,14 @@ module Translator
           line = line.chomp
           next if line.empty?
 
-          translated_word = @google_translator.translate(line) rescue ""
+          translated_word = @google_translator.translate(line, @lang_code) rescue ""
           next if translated_word.empty?
 
           translated_keywords << "#{translated_word} #{line}"
         end
 
         # hard coding missing keywords
-        translated_keywords << "#{@google_translator.translate("else if")} elseif"
+        translated_keywords << "#{@google_translator.translate("else if", @lang_code)} elseif"
 
         translated_keywords
       end
