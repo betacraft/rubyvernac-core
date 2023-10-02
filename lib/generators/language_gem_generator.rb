@@ -1,5 +1,4 @@
 require_relative 'template_generator'
-require_relative '../exceptions/language_not_available_exception'
 
 class LanguageGemGenerator
   attr_reader :language, :author_name, :author_email

@@ -10,16 +10,9 @@ namespace :setup do
   task :fetch_translations do
     `bundle install`
     Bundler.setup(:default)
-    binding.pry
 
-    ruby_vernac_parser = RubyVernacParser.new
-
-    # language = "hindi"
-    # translator = Translator::Main.new(
-    #   language: "hindi",
-    #   lang_code: ruby_vernac_parser.find_lang_code("hindi")
-    # )
-    # translator.generate_translations
+    translator = Translator::Main.new(language: "__lang__")
+    translator.generate_translations
   end
 
 end

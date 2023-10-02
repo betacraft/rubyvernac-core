@@ -1,6 +1,4 @@
 require_relative "./parser/language_parser"
-require_relative "./generators/language_codes"
-require_relative "./exceptions/language_not_available_exception"
 
 class RubyVernacParser
   attr_reader :keywords, :input_bytes, :message_text,
@@ -45,12 +43,6 @@ class RubyVernacParser
   def parse
     return if @error
     print "Parsed code -\n#{parsed_string}"
-  end
-
-  def find_lang_code(language)
-    LanguageCodes.new.find_code(language)
-  rescue LanguageNotAvailableException => e
-    puts e.message
   end
 
   private

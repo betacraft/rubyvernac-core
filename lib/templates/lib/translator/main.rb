@@ -1,13 +1,15 @@
 require_relative 'file_based_translator'
 require_relative 'language_based_translator'
+require_relative 'language_codes'
 
 module Translator
   class Main
 
-    def initialize(language: nil, lang_code: nil)
+    def initialize(language: nil)
       @language = language
-      translations_path = Dir.pwd + "/new_gems/rubyvernac-#{language}/lib/translations"
+      translations_path = Dir.pwd + "/lib/translations"
 
+      lang_code = LanguageCodes.new.find_code(language)
       @language_based_translator = LanguageBasedTranslator.new(lang_code: lang_code, translations_path: translations_path)
       @file_based_translator = FileBasedTranslator.new(
         lang_code: lang_code,
