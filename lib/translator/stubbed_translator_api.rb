@@ -4,7 +4,7 @@ require 'dotenv/load'
 module Translator
   class StubbedTranslatorApi
 
-    def translate(word)
+    def translate(word, _lang_code)
       translation_mappings[word]
     end
 

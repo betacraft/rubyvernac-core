@@ -20,21 +20,21 @@ module Translator
       @translations_path = translations_path
 
       @google_translator = GoogleTranslatorApi.instance
+      @file_handler = FileHandler.new
     end
 
     def generate_translations
       CONFIG[:classes].each do |klass|
         klass = eval(klass) # Note: Fixnum -> Integer
         content = Hash.new
+        class_name = klass.name.downcase
 
         # place to keep class's name -
-        content[klass.name.downcase] = content[klass.name.downcase] || {}
-        content[klass.name.downcase]['cname'] = @google_translator.translate(klass.name, @lang_code)
+        content[class_name] = content[class_name] || {}
+        content[class_name]['cname'] = @google_translator.translate(klass.name, @lang_code)
 
         CONFIG[:methods].each do |method, key|
           klass.send(method).sort.each do |method_name|
-            class_name = klass.name.downcase
-
             content[class_name][key] = content[class_name][key] || {}
             content[class_name][key][method_name.to_s] = @google_translator.translate(method_name.to_s, @lang_code)
           end

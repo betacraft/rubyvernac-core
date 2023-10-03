@@ -1,3 +1,5 @@
+require_relative 'google_translator_api'
+
 module Translator
   class FileBasedTranslator
 
@@ -25,7 +27,7 @@ module Translator
           next if line.empty?
 
           translated_word = @google_translator.translate(line, @lang_code) rescue ""
-          next if translated_word.empty?
+          next if translated_word.nil? || translated_word.empty?
 
           translated_keywords << "#{translated_word} #{line}"
         end
