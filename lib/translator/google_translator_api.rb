@@ -1,8 +1,6 @@
 require "google/cloud/translate/v3"
 require 'dotenv/load'
 
-require_relative 'stubbed_translator_api'
-
 module Translator
   class GoogleTranslatorApi
     @instance_mutex = Mutex.new
@@ -43,11 +41,6 @@ module Translator
       #   translated_word
 
       translated_word
-    end
-
-    def stubbed_translation(word)
-      @stubbed ||= Translator::StubbedTranslatorApi.new
-      @stubbed.translate(word) || ""
     end
 
     private

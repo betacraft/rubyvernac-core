@@ -39,7 +39,7 @@ module Translator
       def write_to_output_file(translated_keywords)
         content = translated_keywords.join("\n")
 
-        File.open("#{translations_path}/#{output_file}", "w") {|f| f.write(content) }
+        File.open(@output_file, "w") {|f| f.write(content) }
       end
 
   end
