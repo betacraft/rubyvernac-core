@@ -109,10 +109,10 @@ class Translations
       str = ''
     end
 
-    #replace spaces - 
+    #replace spaces -
     str = str.gsub(/ |\./, '_')
 
-    # # return none if it's only latin - 
+    # # return none if it's only latin -
     # !!str.match(/^[a-zA-Z0-9_\-+? ]*$/) ?
     #   '' :
     #   str
