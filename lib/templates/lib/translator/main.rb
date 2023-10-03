@@ -1,3 +1,5 @@
+require "fileutils"
+
 require_relative 'file_based_translator'
 require_relative 'language_based_translator'
 require_relative 'language_codes'
@@ -24,8 +26,14 @@ module Translator
 
       print "\n\nGetting translations\n"
       print "== Please wait this will take some time ==\n"
-      thread_1 = Thread.new{@file_based_translator.process_file}
-      thread_2 = Thread.new{@language_based_translator.generate_translations}
+      thread_1 = Thread.new do
+        @file_based_translator.process_file
+        FileUtils.touch(Dir.pwd + "/bin/.file_based_translations_completed")
+      end
+      thread_2 = Thread.new do
+        @language_based_translator.generate_translations
+        FileUtils.touch(Dir.pwd + "/bin/.language_based_translations_completed")
+      end
 
       display_spinner([ thread_1, thread_2 ])
 
