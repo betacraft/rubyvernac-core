@@ -1,8 +1,12 @@
+require 'forwardable'
+
 require_relative "./parser/language_parser"
-require_relative "./generators/language_codes"
-require_relative "./exceptions/language_not_available_exception"
+require_relative "./generators/language_alias_generator"
 
 class RubyVernacParser
+  extend Forwardable
+
+  def_delegator :@language_alias_generator, :alias_class_method, :alias_instance_method
   attr_reader :keywords, :input_bytes, :message_text,
               :source_file, :language, :keywords_file
 
@@ -14,6 +18,8 @@ class RubyVernacParser
     @language = language
     @keywords_file = keywords_file
     @keywords = {}
+
+    @language_alias_generator = LanguageAliasGenerator.new
     begin
       # validate_args
       read_input_file
@@ -45,12 +51,6 @@ class RubyVernacParser
   def parse
     return if @error
     print "Parsed code -\n#{parsed_string}"
-  end
-
-  def find_lang_code(language)
-    LanguageCodes.new.find_code(language)
-  rescue LanguageNotAvailableException => e
-    puts e.message
   end
 
   private
