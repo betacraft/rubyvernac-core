@@ -6,8 +6,8 @@ module CloudProvider
   class TranslatorApi
     def_delegator :@cloud_provider, :translate
 
-    def initialize
-      @cloud_provider = Gcp::GoogleTranslatorApi.instance
+    def initialize(cloud_provider: Gcp::GoogleTranslatorApi.instance)
+      @cloud_provider = cloud_provider
     end
 
   end
