@@ -1,6 +1,3 @@
-require "google/cloud/translate/v3"
-require 'dotenv/load'
-
 require_relative '../exceptions/translation_failed_exception'
 
 module Translator

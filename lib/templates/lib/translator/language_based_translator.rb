@@ -1,8 +1,8 @@
 require 'yaml'
 
 require_relative '../exceptions/translation_failed_exception'
-require_relative 'google_translator_api'
-require_relative 'stubbed_translator_api'
+require_relative '../cloud_provider/translator_api'
+require_relative '../cloud_provider/stubbed_translator_api'
 
 module Translator
   class LanguageBasedTranslator
@@ -12,7 +12,7 @@ module Translator
       @translations_path = translations_path
       @filename = filename
 
-      @translator_api = ENV['STUB_CLOUD_APIS'] == 'true' ? StubbedTranslatorApi.new : GoogleTranslatorApi.instance
+      @translator_api = ENV['STUB_CLOUD_APIS'] == 'true' ? CloudProvider::StubbedTranslatorApi.new : CloudProvider::TranslatorApi.new
     end
 
     def generate_translations
