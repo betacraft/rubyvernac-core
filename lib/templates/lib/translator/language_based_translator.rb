@@ -1,6 +1,5 @@
 require 'yaml'
 require_relative 'google_translator_api'
-require_relative 'stubbed_translator_api'
 
 module Translator
   class LanguageBasedTranslator
@@ -18,8 +17,7 @@ module Translator
       @lang_code = lang_code
       @translations_path = translations_path
 
-      # @translator_api = GoogleTranslatorApi.instance
-      @translator_api = StubbedTranslatorApi.new
+      @translator_api = GoogleTranslatorApi.instance
     end
 
     def generate_translations

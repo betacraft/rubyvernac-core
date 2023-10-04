@@ -1,13 +1,11 @@
 require_relative 'google_translator_api'
-require_relative 'stubbed_translator_api'
 
 module Translator
   class FileBasedTranslator
 
     def initialize(lang_code: , translations_path:, input_file:, output_file:)
       @lang_code = lang_code
-      # @translator_api = GoogleTranslatorApi.instance
-      @translator_api = StubbedTranslatorApi.new
+      @translator_api = GoogleTranslatorApi.instance
 
       @input_file = File.open("#{translations_path}/#{input_file}")
       @output_file = File.open("#{translations_path}/#{output_file}")
@@ -35,7 +33,7 @@ module Translator
         end
 
         # hard coding missing keywords
-        translated_keywords << "#{@translator_api.translate("else if", @lang_code)} elseif"
+        translated_keywords << "#{@translator_api.translate("else if", @lang_code)} elsif"
 
         translated_keywords
       end
