@@ -22,8 +22,8 @@ class RubyVernacParser
     @language_alias_generator = LanguageAliasGenerator.new
     begin
       # validate_args
-      read_input_file
-      read_keywords
+      read_input_file if @source_file
+      read_keywords if @keywords_file
     rescue
       @error = true # Do nothing and stop execution
     end
