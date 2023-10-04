@@ -1,6 +1,6 @@
 ---
-module:
-  cname: "मॉड्यूल"
+object:
+  cname: "वस्तु"
   cpumethods:
     "!": "!"
     "!=": "=!"
@@ -44,7 +44,6 @@ module:
     frozen?: "जमे_हुए_?"
     gem: "रत्न"
     hash: "गड़बड़"
-    include: "शामिल"
     include?: "में_शामिल_हैं?"
     included_modules: ''
     inspect: "निरीक्षण"
@@ -66,11 +65,9 @@ module:
     module_eval: ''
     module_exec: ''
     name: "नाम"
-    nesting: "घोंसला_करने_की_क्रिया"
-    new: "नए"
+    new: "नया"
     nil?: "शून्य_?"
     object_id: ''
-    prepend: "पहले_जोड़ें"
     pretty_inspect: ''
     pretty_print: ''
     pretty_print_cycle: ''
@@ -101,8 +98,6 @@ module:
     respond_to?: "का_जवाब?"
     send: "भेजो"
     singleton_class: ''
-    singleton_class?: ''
-    singleton_method: ''
     singleton_methods: ''
     superclass: "सुपर_क्लास"
     taint: "कलंक"
@@ -121,6 +116,10 @@ module:
     yaml_tag: ''
     byebug: ''
     debugger: "डिबगर"
+    include: "शामिल"
+    prepend: "पहले_जोड़ें"
+    singleton_class?: ''
+    singleton_method: ''
   cprmethods:
     Array: "ऐरे"
     Complex: "जटिल"
@@ -133,7 +132,6 @@ module:
     Pathname: ''
     Rational: "तर्कसंगत"
     String: "तार"
-    URI: "यूआरआई"
     __callee__: ''
     __dir__: ''
     __method__: ''
@@ -162,6 +160,7 @@ module:
     gem_original_require: ''
     gets: "हो_जाता_है"
     global_variables: "सार्वत्रिक_चर"
+    include: "समाविष्ट_कर"
     included: "शामिल"
     inherited: "विरासत_में_मिला"
     initialize: "हस्ताक्षर_करना"
@@ -170,6 +169,7 @@ module:
     initialize_dup: ''
     iterator?: ''
     j: "जम्मू"
+    jj: "जेजे"
     lambda: "लैम्ब्डा"
     load: "लोड"
     local_variables: ''
@@ -182,6 +182,8 @@ module:
     open_uri_original_open: ''
     p: "पी"
     pp: "पीपी"
+    prepend: "लावलेच"
+    prepend_features: ''
     prepended: ''
     print: "छाप"
     printf: ''
@@ -190,7 +192,7 @@ module:
     protected: "संरक्षित"
     public: "सार्वजनिक"
     putc: ''
-    puts: "पुट"
+    puts: "छापो"
     raise: "उठाना"
     rand: "हाशिया"
     readline: ''
@@ -215,47 +217,29 @@ module:
     test: "टेस्ट"
     throw: "फेंक"
     trace_var: ''
+    translate: "अनुवाद_करें"
     trap: "चक्रव्यूह"
     undef_method: ''
     untrace_var: ''
-    using: "का_उपयोग_करते_हुए"
     warn: "चेतावनी_देना"
+    URI: "यूआरआई"
     default_src_encoding: ''
     gem: "मणि"
-    jj: "जेजे"
     timeout: "समय_समाप्त"
-    translate: "अनुवाद_करें"
+    using: "का_उपयोग_करते_हुए"
   ipumethods:
     "!": "!"
     "!=": "=!"
     "!~": "~!"
-    "<": "<"
-    "<=": "<="
     "<=>": "<=>"
     "==": "=="
     "===": "==="
     "=~": "=_~"
-    ">": ">"
-    ">=": "=>"
     __binding__: ''
     __id__: ''
     __send__: __भेजो__
-    ancestors: "पूर्वजों"
-    autoload: ''
-    autoload?: ''
     class: "कक्षा"
-    class_eval: ''
-    class_exec: ''
-    class_variable_defined?: ''
-    class_variable_get: ''
-    class_variable_set: ''
-    class_variables: ''
     clone: "क्लोन"
-    const_defined?: ''
-    const_get: ''
-    const_missing: ''
-    const_set: ''
-    constants: "स्थिरांक"
     define_singleton_method: ''
     display: "प्रदर्शन"
     dup: ''
@@ -267,14 +251,9 @@ module:
     frozen?: "जमे_हुए_?"
     gem: "रत्न"
     hash: "गड़बड़"
-    include: "शामिल"
-    include?: "में_शामिल_हैं?"
-    included_modules: ''
     inspect: "निरीक्षण"
     instance_eval: ''
     instance_exec: ''
-    instance_method: ''
-    instance_methods: ''
     instance_of?: "का_उदाहरण?"
     instance_variable_defined?: ''
     instance_variable_get: ''
@@ -283,46 +262,25 @@ module:
     is_a?: "एक_है?"
     kind_of?: "एक_प्रकार_का?"
     method: "विधि"
-    method_defined?: ''
     methods: "विधियों"
-    module_eval: ''
-    module_exec: ''
-    name: "नाम"
     nil?: "शून्य_?"
     object_id: ''
-    prepend: "पहले_जोड़ें"
     pretty_inspect: ''
     pretty_print: ''
     pretty_print_cycle: ''
     pretty_print_inspect: ''
     pretty_print_instance_variables: ''
-    private_class_method: ''
-    private_constant: ''
-    private_instance_methods: ''
-    private_method_defined?: ''
     private_methods: ''
-    protected_instance_methods: ''
-    protected_method_defined?: ''
     protected_methods: ''
     pry: "जिज्ञासा"
     psych_to_yaml: ''
-    psych_yaml_as: ''
-    public_class_method: ''
-    public_constant: ''
-    public_instance_method: ''
-    public_instance_methods: ''
     public_method: ''
-    public_method_defined?: ''
     public_methods: ''
     public_send: ''
-    rake_extension: ''
-    remove_class_variable: ''
     remove_instance_variable: ''
     respond_to?: "का_जवाब?"
     send: "भेजो"
     singleton_class: ''
-    singleton_class?: ''
-    singleton_method: ''
     singleton_methods: ''
     taint: "कलंक"
     tainted?: "दागी_?"
@@ -336,9 +294,9 @@ module:
     untaint: ''
     untrust: ''
     untrusted?: "अविश्वस्त_?"
-    yaml_as: ''
     byebug: ''
     debugger: "डिबगर"
+    singleton_method: ''
   iprmethods:
     Array: "ऐरे"
     Complex: "जटिल"
@@ -351,74 +309,54 @@ module:
     Pathname: ''
     Rational: "तर्कसंगत"
     String: "तार"
-    URI: "यूआरआई"
     __callee__: ''
     __dir__: ''
     __method__: ''
     "`": "`"
     abort: "गर्भपात"
-    alias_method: ''
-    append_features: ''
     at_exit: ''
-    attr: ''
-    attr_accessor: ''
-    attr_reader: ''
-    attr_writer: ''
+    autoload: ''
+    autoload?: ''
     binding: "बाध्यकारी"
     block_given?: ''
     caller: "फोन_करने_वाले"
     caller_locations: ''
     catch: "पकड़"
-    define_method: ''
     eval: ''
     exec: "चलाना"
     exit: "बाहर_जाएं"
     exit!: "बाहर_जाएं!"
-    extend_object: ''
-    extended: "विस्तृत"
     fail: "असफल"
     fork: "कांटा"
     format: "प्रारूप"
     gem_original_require: ''
     gets: "हो_जाता_है"
     global_variables: "सार्वत्रिक_चर"
-    included: "शामिल"
     initialize: "हस्ताक्षर_करना"
     initialize_clone: ''
     initialize_copy: ''
     initialize_dup: ''
     iterator?: ''
     j: "जम्मू"
+    jj: "जेजे"
     lambda: "लैम्ब्डा"
     load: "लोड"
     local_variables: ''
     loop: "पाश"
-    method_added: ''
     method_missing: ''
-    method_removed: ''
-    method_undefined: ''
-    module_function: ''
     open: "खुली"
     open_uri_original_open: ''
     p: "पी"
     pp: "पीपी"
-    prepend_features: ''
-    prepended: ''
     print: "छाप"
     printf: ''
-    private: "निजी"
     proc: ''
-    protected: "संरक्षित"
-    public: "सार्वजनिक"
     putc: ''
-    puts: "पुट"
+    puts: "छापो"
     raise: "उठाना"
     rand: "हाशिया"
     readline: ''
     readlines: ''
-    refine: "को_परिष्कृत"
-    remove_const: ''
-    remove_method: ''
     require: "की_आवश्यकता_होती_है"
     require_relative: ''
     respond_to_missing?: ''
@@ -437,13 +375,11 @@ module:
     test: "टेस्ट"
     throw: "फेंक"
     trace_var: ''
+    translate: "अनुवाद_करें"
     trap: "चक्रव्यूह"
-    undef_method: ''
     untrace_var: ''
-    using: "का_उपयोग_करते_हुए"
     warn: "चेतावनी_देना"
+    URI: "यूआरआई"
     default_src_encoding: ''
     gem: "मणि"
-    jj: "जेजे"
     timeout: "समय_समाप्त"
-    translate: "अनुवाद_करें"
