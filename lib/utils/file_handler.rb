@@ -37,6 +37,12 @@ class FileHandler
     end
   end
 
+  def append_to_file(abs_path, content)
+    File.open(abs_path, 'w+') do |f|
+      f.write( content )
+    end
+  end
+
   def make_executable(abs_path)
       system("chmod a+x #{abs_path}")
   end
