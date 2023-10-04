@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
-`bundle install`
-require "bundler"
-Bundler.setup(:default)
 
+# Install ruby gems and load them
+require "bundler"
+`bundle install`
+Bundler.setup(:default)
 require "ruby-vernac-parser"
 
 if ARGV.size < 1
