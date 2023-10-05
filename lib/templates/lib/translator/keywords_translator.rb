@@ -1,4 +1,5 @@
 require 'dotenv/load'
+require 'yaml'
 
 require_relative '../exceptions/translation_failed_exception'
 require_relative '../cloud_provider/translator_api'
@@ -15,43 +16,34 @@ module Translator
         @translator_api = CloudProvider::TranslatorApi.new
       end
 
-      @input_file = File.open("#{translations_path}/#{filename}")
-      @output_file = File.open("#{translations_path}/#{filename}")
+      @keywords_file_path = "#{translations_path}/#{filename}"
     end
 
     def generate_translations
-      translated_keywords = translate_input_file
-      write_to_output_file(translated_keywords)
+      translate_input_file
     end
 
     private
 
       def translate_input_file
-        translated_keywords = []
-        lines = @input_file.readlines
+        content = YAML.load_file(@keywords_file_path)
+        translated_content = {}
 
-        lines.each do |line|
-          line = line.chomp
-          next if line.empty?
-
+        content.each do |key, val|
           begin
-            translated_word = @translator_api.translate(line, @lang_code)
-            translated_keywords << "#{translated_word} #{line}"
+            translated_content[key] = @translator_api.translate(val.to_s, @lang_code)
           rescue TranslationFailedException => e
             puts e.message
           end
         end
 
-        # hard coding missing keywords
-        translated_keywords << "#{@translator_api.translate("else if", @lang_code)} elsif" rescue ""
-
-        translated_keywords
+        write_content_to_file(translated_content.to_yaml)
       end
 
-      def write_to_output_file(translated_keywords)
-        content = translated_keywords.join("\n")
-
-        File.open(@output_file, "w") {|f| f.write(content) }
+      def write_content_to_file(content)
+        File.open(@keywords_file_path, 'w') do |f|
+          f.write(content)
+        end
       end
 
   end

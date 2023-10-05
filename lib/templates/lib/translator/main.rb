@@ -13,7 +13,7 @@ module Translator
 
       lang_code = LanguageCodes.new.find_code(language)
 
-      if filename == 'keywords.txt'
+      if filename == 'keywords.yml'
         @translator = KeywordsTranslator.new(
           lang_code: lang_code,
           translations_path: translations_path,
