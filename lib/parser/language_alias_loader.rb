@@ -2,12 +2,8 @@ require 'yaml'
 
 class LanguageAliasLoader
 
-  def initialize(parser:)
-    @parser = parser
-  end
-
   def create_aliases(translations_path)
-    Dir.glob(translations_path + '/*.yml').each do |filepath|
+    Dir.glob(translations_path + '/module.yml').each do |filepath|
       content = YAML.load_file(File.expand_path"#{filepath}")
       class_name = content.keys[0].capitalize
 
@@ -17,24 +13,39 @@ class LanguageAliasLoader
 
       # class methods -
       content.first.last['cpumethods'].each do |k, v|
-        @parser.alias_class_method(class_name, k, v) unless v.chop.length.zero?
+        alias_class_method(class_name, k, v) unless v.chop.length.zero?
       end
 
       content.first.last['cprmethods'].each do |k, v|
-        @parser.alias_class_method(class_name, k, v) unless v.chop.length.zero?
+        alias_class_method(class_name, k, v) unless v.chop.length.zero?
       end
 
       # instance methods -
       content.first.last['ipumethods'].each do |k, v|
-        @parser.alias_instance_method(class_name, k, v) unless v.chop.length.zero?
+        alias_instance_method(class_name, k, v) unless v.chop.length.zero?
       end if content.first.last['ipumethods']
 
       # instance methods -
       content.first.last['iprmethods'].each do |k, v|
         next if [:respond_to_missing?, :method_missing].include?(k.to_sym)
-        @parser.alias_instance_method(class_name, k, v) unless v.chop.length.zero?
+        alias_instance_method(class_name, k, v) unless v.chop.length.zero?
       end if content.first.last['iprmethods']
 
     end
   end
+
+  private
+    def alias_class_method(class_name, orig_name, alias_name)
+      klass = Object.class_eval(class_name)
+      singleton_klass = klass.singleton_class
+
+      singleton_klass.send(:alias_method, alias_name, orig_name)
+    end
+
+    def alias_instance_method(class_name, orig_name, alias_name)
+      klass = Object.class_eval(class_name)
+
+      klass.send(:alias_method, alias_name, orig_name)
+    end
+
 end

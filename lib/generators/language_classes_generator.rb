@@ -3,7 +3,7 @@ require 'yaml'
 
 class LanguageClassesGenerator
   CONFIG = {
-    classes: ["Array", "Class", "Object", "Integer", "Math"],
+    classes: ["Array", "Class", "Object", "Integer", "Math", "Module"],
     methods: {
       public_methods: 'cpumethods',
       private_methods: 'cprmethods',
