@@ -12,7 +12,11 @@ module Translator
       @translations_path = translations_path
       @filename = filename
 
-      @translator_api = ENV['STUB_CLOUD_APIS'] == 'true' ? CloudProvider::StubbedTranslatorApi.new : CloudProvider::TranslatorApi.new
+      if ENV['STUB_CLOUD_APIS'] == 'true'
+        @translator_api = CloudProvider::StubbedTranslatorApi.new
+      else
+        @translator_api = CloudProvider::TranslatorApi.new
+      end
     end
 
     def generate_translations
