@@ -1,7 +1,7 @@
 require_relative '../utils/file_handler'
 require 'yaml'
 
-module RubyVernac
+module Rubyvernac
   module Generators
 
     class LanguageClassesGenerator

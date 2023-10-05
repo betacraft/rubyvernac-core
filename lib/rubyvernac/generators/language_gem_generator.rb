@@ -1,7 +1,7 @@
 require_relative 'template_generator'
 require_relative 'language_classes_generator'
 
-module RubyVernac
+module Rubyvernac
   module Generators
 
     class LanguageGemGenerator
@@ -13,8 +13,8 @@ module RubyVernac
         @author_name = author_name
         @author_email = author_email
 
-        @template_generator = RubyVernac::Generators::TemplateGenerator.new(language: @language)
-        @language_classes_generator = RubyVernac::Generators::LanguageClassesGenerator.new(language: @language)
+        @template_generator = Rubyvernac::Generators::TemplateGenerator.new(language: @language)
+        @language_classes_generator = Rubyvernac::Generators::LanguageClassesGenerator.new(language: @language)
       end
 
 

@@ -1,6 +1,6 @@
 require "fileutils"
 
-module RubyVernac
+module Rubyvernac
   module Utils
 
     class FileHandler

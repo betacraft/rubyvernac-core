@@ -1,6 +1,6 @@
 require 'yaml'
 
-module RubyVernac
+module Rubyvernac
   module Parser
 
     class LanguageAliasLoader

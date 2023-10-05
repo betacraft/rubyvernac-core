@@ -8,7 +8,7 @@ print "Ruby Vernac Language Gem Generator\n"
 print "Enter prefered language: "
 selected_language = gets.chomp()
 
-RubyVernac::Generators::LanguageGemGenerator.new(
+Rubyvernac::Generators::LanguageGemGenerator.new(
   language: selected_language,
   # author_email: author_email,
   # author_name: author_name

@@ -11,16 +11,16 @@ module Translator
       @language = language
       translations_path = Dir.pwd + "/lib/translations"
 
-      lang_code = LanguageCodes.new.find_code(language)
+      lang_code = Rubyvernac::Translator::LanguageCodes.new.find_code(language)
 
       if filename == 'keywords.yml'
-        @translator = KeywordsTranslator.new(
+        @translator = Rubyvernac::Translator::KeywordsTranslator.new(
           lang_code: lang_code,
           translations_path: translations_path,
           filename: filename
         )
       else
-        @translator = LanguageBasedTranslator.new(
+        @translator = Rubyvernac::Translator::LanguageBasedTranslator.new(
           lang_code: lang_code,
           translations_path: translations_path,
           filename: filename

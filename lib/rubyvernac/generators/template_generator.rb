@@ -1,6 +1,6 @@
 require_relative '../utils/file_handler'
 
-module RubyVernac
+module Rubyvernac
   module Generators
 
     class TemplateGenerator
@@ -10,7 +10,7 @@ module RubyVernac
         @language = language
         @generated_gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"
 
-        @file_handler = RubyVernac::Utils::FileHandler.new
+        @file_handler = Rubyvernac::Utils::FileHandler.new
       end
 
       def generate_gem_files

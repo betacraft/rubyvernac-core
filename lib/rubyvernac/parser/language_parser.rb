@@ -1,4 +1,4 @@
-module RubyVernac
+module Rubyvernac
   module Parser
 
     class LanguageParser
