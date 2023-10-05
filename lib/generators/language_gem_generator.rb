@@ -1,4 +1,5 @@
 require_relative 'template_generator'
+require_relative 'language_classes_generator'
 
 class LanguageGemGenerator
   attr_reader :language, :author_name, :author_email
@@ -10,16 +11,16 @@ class LanguageGemGenerator
     @author_email = author_email
 
     @template_generator = TemplateGenerator.new(language: @language)
+    @language_classes_generator = LanguageClassesGenerator.new(language: @language)
   end
 
 
   def generate
     @template_generator.generate_gem_files
+    @language_classes_generator.generate_class_files
 
     print "\n The new gem can be found in 'new_gems' folder\n"
     # FileUtils.mv('/tmp/your_file', '/opt/new/location/your_file') # To move the output folder
-  rescue LanguageNotAvailableException => e
-    puts e.message
   end
 
 end
