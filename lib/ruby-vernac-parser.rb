@@ -6,7 +6,7 @@ require_relative "./generators/language_alias_generator"
 class RubyVernacParser
   extend Forwardable
 
-  def_delegator :@language_alias_generator, :alias_class_method, :alias_instance_method
+  def_delegators :@language_alias_generator, :alias_class_method, :alias_instance_method
   attr_reader :keywords, :input_bytes, :message_text,
               :source_file, :language, :keywords_file
 
