@@ -9,7 +9,11 @@ module Translator
 
     def initialize(lang_code: , translations_path:, filename:)
       @lang_code = lang_code
-      @translator_api = ENV['STUB_CLOUD_APIS'] == 'true' ? CloudProvider::StubbedTranslatorApi.new : CloudProvider::TranslatorApi.new
+      if ENV['STUB_CLOUD_APIS'] == 'true'
+        @translator_api = CloudProvider::StubbedTranslatorApi.new
+      else
+        @translator_api = CloudProvider::TranslatorApi.new
+      end
 
       @input_file = File.open("#{translations_path}/#{filename}")
       @output_file = File.open("#{translations_path}/#{filename}")

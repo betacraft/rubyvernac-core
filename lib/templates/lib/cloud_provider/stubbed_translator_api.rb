@@ -1,6 +1,6 @@
 require_relative '../exceptions/translation_failed_exception'
 
-module Translator
+module CloudProvider
   class StubbedTranslatorApi
 
     def translate(word, _lang_code)

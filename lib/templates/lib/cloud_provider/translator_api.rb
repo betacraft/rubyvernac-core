@@ -4,6 +4,8 @@ require 'forwardable'
 
 module CloudProvider
   class TranslatorApi
+    extend Forwardable
+
     def_delegator :@cloud_provider, :translate
 
     def initialize(cloud_provider: Gcp::GoogleTranslatorApi.instance)
