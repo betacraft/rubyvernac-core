@@ -1,15 +1,19 @@
 require 'dotenv/load'
 
 require_relative '../exceptions/translation_failed_exception'
-require_relative 'google_translator_api'
-require_relative 'stubbed_translator_api'
+require_relative '../cloud_provider/translator_api'
+require_relative '../cloud_provider/stubbed_translator_api'
 
 module Translator
   class KeywordsTranslator
 
     def initialize(lang_code: , translations_path:, filename:)
       @lang_code = lang_code
-      @translator_api = ENV['STUB_CLOUD_APIS'] == 'true' ? StubbedTranslatorApi.new : GoogleTranslatorApi.instance
+      if ENV['STUB_CLOUD_APIS'] == 'true'
+        @translator_api = CloudProvider::StubbedTranslatorApi.new
+      else
+        @translator_api = CloudProvider::TranslatorApi.new
+      end
 
       @input_file = File.open("#{translations_path}/#{filename}")
       @output_file = File.open("#{translations_path}/#{filename}")
