@@ -25,14 +25,8 @@ module CloudProvider
       end
 
       def translate(word, target_language_code)
-        begin
-          response = make_translate_text_request(word, target_language_code)
-
-          translated_word = response.translations.first&.translated_text || ""
-        rescue Exception => e
-          puts e.message
-          translated_word = ''
-        end
+        response = make_translate_text_request(word, target_language_code)
+        translated_word = response.translations.first&.translated_text || ""
 
         #replace spaces -
         translated_word = translated_word.gsub(/ |\./, '_')
