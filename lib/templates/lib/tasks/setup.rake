@@ -7,7 +7,7 @@ namespace :setup do
     if (args[:filename] || '').empty?
       puts "Please provide a file to be translated => rake setup:fetch_translations[example.yml]"
     else
-      translator = Translator::Main.new(language: "__lang__", filename: args[:filename])
+      translator = Rubyvernac::Translator::Main.new(language: "__lang__", filename: args[:filename])
       translator.generate_translations
     end
   end
