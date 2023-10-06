@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'yaml'
 
 require_relative "./parser/language_parser"
 require_relative "./parser/language_alias_loader"
@@ -72,16 +73,10 @@ class RubyVernacParser
   end
 
   def read_keywords
-    begin
-      file = File.open(keywords_file)
-      file.readlines.map(&:chomp).each do |line|
-        fields = line.split(" ")
-        next if fields.size != 2
-        @keywords[fields[0]] = fields[1]
-      end
-    rescue => err
-      print "Error reading keywords #{err}\n"
-      raise
+    _keywords = YAML.load_file(@keywords_file)
+
+    _keywords.each do |keyword_in_eng, keyword_in_non_eng|
+      @keywords[keyword_in_non_eng.to_s] = keyword_in_eng.to_s
     end
   end
 
@@ -108,6 +103,8 @@ class RubyVernacParser
       File.open(file_path, 'w') { |file| file.write(parsed_string) } rescue nil
       file_path
     )
+
+    @temp_file_path
   end
 
 end

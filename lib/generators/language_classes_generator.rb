@@ -14,7 +14,7 @@ class LanguageClassesGenerator
 
   def initialize(language:)
     @file_handler = FileHandler.new
-    @new_gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}/lib/translations"
+    @new_gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}/lib/translations/classes"
 
     @file_handler.make_dir_if_not_exists(@new_gem_path)
   end
