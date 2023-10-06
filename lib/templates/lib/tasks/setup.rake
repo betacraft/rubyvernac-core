@@ -1,4 +1,4 @@
-require_relative "../translator/main"
+require_relative "../rubyvernac/translator/main"
 
 namespace :setup do
 
