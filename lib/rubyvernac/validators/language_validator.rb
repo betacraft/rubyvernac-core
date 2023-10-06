@@ -1,5 +1,4 @@
 require_relative '../exceptions/language_not_available_exception'
-
 module Rubyvernac
   module Validators
 
@@ -13,7 +12,7 @@ module Rubyvernac
 
       private
         def available_languages
-          @_available_languages ||= YAML::load_file("lib/available_languages.yml")
+          @_available_languages ||= YAML::load_file(Dir.pwd + "/lib/templates/lib/available_languages.yml")
           @_available_languages
         end
 

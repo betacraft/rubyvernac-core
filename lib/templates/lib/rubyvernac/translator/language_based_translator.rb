@@ -58,6 +58,6 @@ module Rubyvernac
         end
 
     end
-  end
 
+  end
 end
