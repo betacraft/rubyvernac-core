@@ -16,7 +16,6 @@ module:
     __binding__: ''
     __id__: ''
     __send__: __भेजो__
-    allocate: "आवंटित"
     ancestors: "पूर्वजों"
     autoload: ''
     autoload?: ''

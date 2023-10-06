@@ -1,6 +1,12 @@
+require 'forwardable'
+
 require_relative "./parser/language_parser"
+require_relative "./parser/language_alias_loader"
 
 class RubyVernacParser
+  extend Forwardable
+
+  def_delegators :@language_alias_loader, :create_aliases
   attr_reader :keywords, :input_bytes, :message_text,
               :source_file, :language, :keywords_file
 
@@ -12,10 +18,12 @@ class RubyVernacParser
     @language = language
     @keywords_file = keywords_file
     @keywords = {}
+
+    @language_alias_loader = LanguageAliasLoader.new
     begin
       # validate_args
-      read_input_file
-      read_keywords
+      read_input_file if @source_file
+      read_keywords if @keywords_file
     rescue
       @error = true # Do nothing and stop execution
     end
