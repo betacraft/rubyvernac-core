@@ -20,25 +20,21 @@ module Translator
     end
 
     def generate_translations
-      translate_input_file
+      content = YAML.load_file(@keywords_file_path)
+      translated_content = {}
+
+      content.each do |key, val|
+        begin
+          translated_content[key] = @translator_api.translate(val.to_s, @lang_code)
+        rescue TranslationFailedException => e
+          puts e.message
+        end
+      end
+
+      write_content_to_file(translated_content.to_yaml)
     end
 
     private
-
-      def translate_input_file
-        content = YAML.load_file(@keywords_file_path)
-        translated_content = {}
-
-        content.each do |key, val|
-          begin
-            translated_content[key] = @translator_api.translate(val.to_s, @lang_code)
-          rescue TranslationFailedException => e
-            puts e.message
-          end
-        end
-
-        write_content_to_file(translated_content.to_yaml)
-      end
 
       def write_content_to_file(content)
         File.open(@keywords_file_path, 'w') do |f|

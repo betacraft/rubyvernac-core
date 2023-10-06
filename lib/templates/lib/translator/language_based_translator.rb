@@ -9,7 +9,7 @@ module Translator
 
     def initialize(lang_code: , translations_path:, filename:)
       @lang_code = lang_code
-      @translations_path = translations_path
+      @translations_path = translations_path + '/classes'
       @filename = filename
 
       if ENV['STUB_CLOUD_APIS'] == 'true'
