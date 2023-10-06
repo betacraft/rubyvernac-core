@@ -3,7 +3,7 @@ require 'yaml'
 class LanguageAliasLoader
 
   def create_aliases(translations_path)
-    Dir.glob(translations_path + '/module.yml').each do |filepath|
+    Dir.glob(translations_path + '/*.yml').each do |filepath|
       content = YAML.load_file(File.expand_path"#{filepath}")
       class_name = content.keys[0].capitalize
 
