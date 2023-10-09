@@ -1,4 +1,6 @@
 require 'pry-nav'
+require 'fileutils'
+
 require_relative 'require_dir'
 
 require_dir '/lib/rubyvernac'

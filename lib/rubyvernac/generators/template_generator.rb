@@ -6,9 +6,9 @@ module Rubyvernac
     class TemplateGenerator
       TEMPLATE_FILES_PATH = Dir.pwd + '/lib/templates'
 
-      def initialize(language:)
+      def initialize(language:, gem_path:)
         @language = language
-        @generated_gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"
+        @generated_gem_path = gem_path
 
         @file_handler = Rubyvernac::Utils::FileHandler.new
       end

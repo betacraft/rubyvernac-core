@@ -16,8 +16,9 @@ module Rubyvernac
 
         @validator = Rubyvernac::Validators::LanguageValidator.new
 
-        @template_generator = Rubyvernac::Generators::TemplateGenerator.new(language: @language)
-        @language_classes_generator = Rubyvernac::Generators::LanguageClassesGenerator.new(language: @language)
+        gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"
+        @template_generator = Rubyvernac::Generators::TemplateGenerator.new(language: @language, gem_path: gem_path)
+        @language_classes_generator = Rubyvernac::Generators::LanguageClassesGenerator.new(language: @language, gem_path: gem_path)
       end
 
 
