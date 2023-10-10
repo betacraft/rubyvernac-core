@@ -2,14 +2,15 @@ RSpec.describe Rubyvernac::CloudProvider::TranslatorApi do
 
   describe "#translate" do
     it "delegate translate to cloud provider instance" do
-      skip("Need to debug why allow_any_instance_of is not working")
+      class TestDouble
+        def translate(word, lang_code)
+          return 'translated text'
+        end
+      end
 
-      allow(::Google::Cloud::Translate::V3::TranslationService::Client).to receive(:new).and_return({})
-      allow_any_instance_of(Rubyvernac::CloudProvider::Gcp::GoogleTranslatorApi).to receive(:translate).
-        with(anything,anything).and_return
+      instance = Rubyvernac::CloudProvider::TranslatorApi.new(cloud_provider: TestDouble.new)
 
-      subject.translate('test', 'hi')
-      # subject.translate
+      expect(instance.translate('test', 'hi')).to eq('translated text')
     end
   end
 
