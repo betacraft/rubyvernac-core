@@ -1,21 +1,32 @@
 RSpec.describe Rubyvernac::Generators::LanguageGemGenerator do
-  subject { Rubyvernac::Generators::LanguageGemGenerator.new(language: 'hindi') }
 
-  describe "" do
-    it "" do
-      skip("Not sure why allow_any_instance_of is not working")
-      allow_any_instance_of(Rubyvernac::Validators::LanguageValidator).to receive(:validate).
-        with('hindi').and_return
+  describe "#generate" do
+    it "Generates templates and language classes" do
+      validator = instance_double("Rubyvernac::Validators::LanguageValidator")
+      expect(validator).to receive(:validate).with('hindi')
 
-      expect_any_instance_of(Rubyvernac::Generators::TemplateGenerator).to receive(:generate_gem_files).once.and_return
-      allow(Rubyvernac::Generators::TemplateGenerator).to receive(:new).
-        with(language: 'hindi', gem_path: Dir.pwd + "/new_gems/rubyvernac-hindi").and_call_original
+      validator_klass = class_double("Rubyvernac::Validators::LanguageValidator").
+        as_stubbed_const(transfer_nested_constants: true)
+      expect(validator_klass).to receive(:new).and_return(validator)
 
-      expect_any_instance_of(Rubyvernac::Generators::LanguageClassesGenerator).to receive(:generate_class_files).once.and_return
-      allow(Rubyvernac::Generators::LanguageClassesGenerator).to receive(:new).
-        with(language: 'hindi', gem_path: Dir.pwd + "/new_gems/rubyvernac-hindi").and_call_original
+      template_generator = instance_double("Rubyvernac::Generators::TemplateGenerator")
+      expect(template_generator).to receive(:generate_gem_files)
 
-      subject.generate
+      template_generator_klass = class_double("Rubyvernac::Generators::TemplateGenerator").
+        as_stubbed_const(transfer_nested_constants: true)
+      expect(template_generator_klass).to receive(:new).
+        with(language: 'hindi', gem_path: Dir.pwd + "/new_gems/rubyvernac-hindi").
+        and_return(template_generator)
+
+      language_classes_generator = instance_double("Rubyvernac::Generators::LanguageClassesGenerator")
+      expect(language_classes_generator).to receive(:generate_class_files)
+
+      language_classes_generator_klass = class_double("Rubyvernac::Generators::LanguageClassesGenerator").
+        as_stubbed_const(transfer_nested_constants: true)
+      expect(language_classes_generator_klass).to receive(:new).and_return(language_classes_generator)
+
+      instance = Rubyvernac::Generators::LanguageGemGenerator.new(language: 'hindi')
+      instance.generate
     end
   end
 

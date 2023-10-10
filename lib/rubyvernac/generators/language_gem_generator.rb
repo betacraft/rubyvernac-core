@@ -8,13 +8,13 @@ module Rubyvernac
     class LanguageGemGenerator
       attr_reader :language, :author_name, :author_email
 
-      def initialize(language: "", author_name: "", author_email: "")
+      def initialize(language: "", author_name: "", author_email: "", validator: Rubyvernac::Validators::LanguageValidator.new)
         @language = language.downcase
 
         @author_name = author_name
         @author_email = author_email
 
-        @validator = Rubyvernac::Validators::LanguageValidator.new
+        @validator = validator
 
         gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}"
         @template_generator = Rubyvernac::Generators::TemplateGenerator.new(language: @language, gem_path: gem_path)
