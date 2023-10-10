@@ -16,7 +16,7 @@ RSpec.describe Rubyvernac::Generators::LanguageClassesGenerator do
       subject.generate_class_files
 
       ['array.yml', 'class.yml', 'integer.yml', 'math.yml', 'module.yml', 'object.yml'].each do |file|
-        expect(FileUtils.compare_file(Dir.pwd + '/spec/stubs/gem_path/lib/translations/classes/' + file, Dir.pwd + '/spec/stubs/' + file)).to be_truthy
+        expect(FileUtils.compare_file(Dir.pwd + '/spec/stubs/gem_path/lib/translations/classes/' + file, Dir.pwd + '/spec/stubs/language_classes_generator/' + file)).to be_truthy
       end
     end
   end
