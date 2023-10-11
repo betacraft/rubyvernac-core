@@ -71,9 +71,9 @@ class RubyVernacParser
   end
 
   def read_keywords
-    _keywords = YAML.load_file(@keywords_file)
+    keywords = YAML.load_file(@keywords_file)
 
-    _keywords.each do |keyword_in_eng, keyword_in_non_eng|
+    keywords.each do |keyword_in_eng, keyword_in_non_eng|
       @keywords[keyword_in_non_eng.to_s] = keyword_in_eng.to_s
     end
   end
