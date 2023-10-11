@@ -13,8 +13,6 @@ RSpec.describe Rubyvernac::Utils::FileHandler do
     end
 
     it "changes directory" do
-      orig_dir = Dir.pwd
-
       subject.make_dir_if_not_exists(dir_path)
       subject.change_dir(dir_path) do
         expect(Dir.pwd).to eq(dir_path)

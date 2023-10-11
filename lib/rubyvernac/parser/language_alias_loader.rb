@@ -5,7 +5,7 @@ module Rubyvernac
     class LanguageAliasLoader
       def create_aliases(translations_path)
         Dir.glob(translations_path + "/*.yml").each do |filepath|
-          content = YAML.load_file(File.expand_path("#{filepath}"))
+          content = YAML.load_file(File.expand_path(filepath.to_s))
           class_name = content.keys[0].capitalize
 
           # class name -
@@ -22,18 +22,14 @@ module Rubyvernac
           end
 
           # instance methods -
-          if content.first.last["ipumethods"]
-            content.first.last["ipumethods"].each do |k, v|
-              alias_instance_method(class_name, k, v) unless v.chop.length.zero?
-            end
+          content.first.last["ipumethods"]&.each do |k, v|
+            alias_instance_method(class_name, k, v) unless v.chop.length.zero?
           end
 
           # instance methods -
-          if content.first.last["iprmethods"]
-            content.first.last["iprmethods"].each do |k, v|
-              next if [:respond_to_missing?, :method_missing].include?(k.to_sym)
-              alias_instance_method(class_name, k, v) unless v.chop.length.zero?
-            end
+          content.first.last["iprmethods"]&.each do |k, v|
+            next if [:respond_to_missing?, :method_missing].include?(k.to_sym)
+            alias_instance_method(class_name, k, v) unless v.chop.length.zero?
           end
         end
       end

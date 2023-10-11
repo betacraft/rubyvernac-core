@@ -46,7 +46,7 @@ class RubyVernacParser
       File.delete(temp_file_path) if File.exist?(temp_file_path)
     end
     print "Script Output - \n" if message_text
-    print "#{output}"
+    print output
   end
 
   def parse

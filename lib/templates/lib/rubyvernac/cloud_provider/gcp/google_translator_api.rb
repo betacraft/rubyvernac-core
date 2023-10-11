@@ -41,7 +41,7 @@ module Rubyvernac
 
         def make_translate_text_request(word, target_language_code)
           request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
-            contents: ["#{word}"],
+            contents: [word.to_s],
             source_language_code: :en,
             target_language_code: target_language_code,
             parent: ENV["GOOGLE_PROJECT_ID"]
