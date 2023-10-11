@@ -1,8 +1,8 @@
 require 'forwardable'
 require 'yaml'
 
-require_relative "./parser/language_parser"
-require_relative "./parser/language_alias_loader"
+require_relative "./rubyvernac/parser/language_parser"
+require_relative "./rubyvernac/parser/language_alias_loader"
 
 class RubyVernacParser
   extend Forwardable
@@ -20,7 +20,7 @@ class RubyVernacParser
     @keywords_file = keywords_file
     @keywords = {}
 
-    @language_alias_loader = LanguageAliasLoader.new
+    @language_alias_loader = Rubyvernac::Parser::LanguageAliasLoader.new
     begin
       # validate_args
       read_input_file if @source_file
@@ -81,7 +81,7 @@ class RubyVernacParser
   end
 
   def parsed_string
-    @parsed_string ||= LanguageParser.run(
+    @parsed_string ||= Rubyvernac::Parser::LanguageParser.run(
                           byte_string: input_bytes,
                           keywords: keywords,
                           language: language
@@ -100,7 +100,7 @@ class RubyVernacParser
   def temp_file_path
     @temp_file_path ||= (
       file_path = "#{source_file}.tmp"
-      File.open(file_path, 'w') { |file| file.write(parsed_string) } rescue nil
+      File.open(file_path, 'w') { |file| file.write(parsed_string) }
       file_path
     )
 
