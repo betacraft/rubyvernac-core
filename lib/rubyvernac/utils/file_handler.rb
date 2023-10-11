@@ -7,7 +7,7 @@ module Rubyvernac
 
       def make_dir_if_not_exists(dir_abs_path)
         if !Dir.exists?(dir_abs_path)
-          FileUtils::mkdir_p(dir_abs_path)
+          FileUtils.mkdir_p(dir_abs_path)
         end
       end
 
@@ -41,13 +41,13 @@ module Rubyvernac
       end
 
       def append_to_file(abs_path, content)
-        File.open(abs_path, 'w+') do |f|
+        File.open(abs_path, 'a') do |f|
           f.write( content )
         end
       end
 
       def make_executable(abs_path)
-          system("chmod a+x #{abs_path}")
+        Kernel.system("chmod a+x #{abs_path}")
       end
 
       def change_dir(abs_path)

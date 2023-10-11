@@ -15,11 +15,11 @@ module Rubyvernac
         }
       }.freeze
 
-      def initialize(language:)
+      def initialize(language:, gem_path:)
         @file_handler = Rubyvernac::Utils::FileHandler.new
-        @new_gem_path = Dir.pwd + "/new_gems/rubyvernac-#{language}/lib/translations/classes"
+        @translations_path = "#{gem_path}/lib/translations/classes"
 
-        @file_handler.make_dir_if_not_exists(@new_gem_path)
+        @file_handler.make_dir_if_not_exists(@translations_path)
       end
 
       def generate_class_files
@@ -40,7 +40,7 @@ module Rubyvernac
             end
           end
 
-          translations_path = "#{@new_gem_path}/#{class_name}.yml"
+          translations_path = "#{@translations_path}/#{class_name}.yml"
           @file_handler.append_to_file(translations_path, content.to_yaml)
         end
       end
