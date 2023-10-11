@@ -1,18 +1,18 @@
-require 'forwardable'
-require 'yaml'
+require "forwardable"
+require "yaml"
 
-require_relative "./rubyvernac/parser/language_parser"
-require_relative "./rubyvernac/parser/language_alias_loader"
+require_relative "rubyvernac/parser/language_parser"
+require_relative "rubyvernac/parser/language_alias_loader"
 
 class RubyVernacParser
   extend Forwardable
 
   def_delegators :@language_alias_loader, :create_aliases
   attr_reader :keywords, :input_bytes, :message_text,
-              :source_file, :language, :keywords_file
+    :source_file, :language, :keywords_file
 
   def initialize(source_file: nil, language: "ruby",
-                 keywords_file: nil, message_text: false)
+    keywords_file: nil, message_text: false)
     # @args = ARGV
     @source_file = source_file
     @message_text = message_text
@@ -64,12 +64,10 @@ class RubyVernacParser
   end
 
   def read_input_file
-    begin
-      @input_bytes = File.read(source_file)
-    rescue => err
-      print "Error reading input file, #{err}\n"
-      raise
-    end
+    @input_bytes = File.read(source_file)
+  rescue => err
+    print "Error reading input file, #{err}\n"
+    raise
   end
 
   def read_keywords
@@ -82,29 +80,28 @@ class RubyVernacParser
 
   def parsed_string
     @parsed_string ||= Rubyvernac::Parser::LanguageParser.run(
-                          byte_string: input_bytes,
-                          keywords: keywords,
-                          language: language
-                        )
+      byte_string: input_bytes,
+      keywords: keywords,
+      language: language
+    )
   end
 
   def command
-    @command ||=   case language
-                    when "ruby"
-                      "ruby"
-                    else
-                      "run"
-                    end
+    @command ||= case language
+    when "ruby"
+      "ruby"
+    else
+      "run"
+    end
   end
 
   def temp_file_path
-    @temp_file_path ||= (
+    @temp_file_path ||= begin
       file_path = "#{source_file}.tmp"
-      File.open(file_path, 'w') { |file| file.write(parsed_string) }
+      File.write(file_path, parsed_string)
       file_path
-    )
+    end
 
     @temp_file_path
   end
-
 end

@@ -1,7 +1,5 @@
 module Rubyvernac
-
   class TranslationFailedException < StandardError
-
     def initialize(text)
       @text = text
     end
@@ -10,5 +8,4 @@ module Rubyvernac
       "Translation failed for #{@text}"
     end
   end
-
 end

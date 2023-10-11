@@ -2,17 +2,15 @@ require "fileutils"
 
 module Rubyvernac
   module Utils
-
     class FileHandler
-
       def make_dir_if_not_exists(dir_abs_path)
-        if !Dir.exists?(dir_abs_path)
+        if !Dir.exist?(dir_abs_path)
           FileUtils.mkdir_p(dir_abs_path)
         end
       end
 
       def list_files(abs_path)
-        path_regex = File.join(abs_path, '/**/**')
+        path_regex = File.join(abs_path, "/**/**")
         all_paths = Dir.glob(File.expand_path(path_regex))
 
         all_paths.select { |path| is_file?(path) }
@@ -35,14 +33,12 @@ module Rubyvernac
       end
 
       def write_to_file(abs_path, content)
-        File.open(abs_path, "w") do |f|
-          f.write(content)
-        end
+        File.write(abs_path, content)
       end
 
       def append_to_file(abs_path, content)
-        File.open(abs_path, 'a') do |f|
-          f.write( content )
+        File.open(abs_path, "a") do |f|
+          f.write(content)
         end
       end
 
@@ -55,8 +51,6 @@ module Rubyvernac
           yield
         end
       end
-
     end
-
   end
 end

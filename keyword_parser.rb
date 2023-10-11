@@ -1,4 +1,4 @@
-require_relative "./lib/ruby-vernac-parser"
+require_relative "lib/ruby-vernac-parser"
 
 arg = ARGV
 RubyVernacParser.new(
@@ -7,4 +7,3 @@ RubyVernacParser.new(
   keywords_file: arg[2],
   message_text: true
 ).execute
-

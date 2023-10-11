@@ -1,11 +1,9 @@
-require_relative '../exceptions/translation_failed_exception'
+require_relative "../exceptions/translation_failed_exception"
 
 module Rubyvernac
   module CloudProvider
-
     class StubbedTranslatorApi
-
-      def initialize(stubbed_translations: 'lib/templates/lib/rubyvernac/stubs')
+      def initialize(stubbed_translations: "lib/templates/lib/rubyvernac/stubs")
         @stubbed_translations = stubbed_translations
       end
 
@@ -16,35 +14,33 @@ module Rubyvernac
 
       private
 
-        def translation_mappings
-          @translation_mappings ||= build_translation_mappings
+      def translation_mappings
+        @translation_mappings ||= build_translation_mappings
+      end
+
+      def build_translation_mappings
+        mappings = {}
+        Dir.children(@stubbed_translations).each do |file|
+          next if file == "keywords.yml"
+          stub = YAML.load_file("#{@stubbed_translations}/#{file}")
+
+          klass = file.split(".")[0]
+          stub[klass].keys.each do |key|
+            next if key == "cname"
+            mappings.merge!(stub[klass][key])
+          end
         end
 
-        def build_translation_mappings
-          mappings = {}
-          Dir.children(@stubbed_translations).each do |file|
-            next if file == 'keywords.yml'
-            stub = YAML.load_file("#{@stubbed_translations}/#{file}")
+        keywords_stub = YAML.load_file("#{@stubbed_translations}/keywords.yml")
+        mappings.merge!(keywords_stub)
 
-            klass = file.split('.')[0]
-            stub[klass].keys.each do |key|
-              next if key == 'cname'
-              mappings.merge!(stub[klass][key])
-            end
-          end
-
-          keywords_stub = YAML.load_file("#{@stubbed_translations}/keywords.yml")
-          mappings.merge!(keywords_stub)
-
-          stringified_mappings = {}
-          mappings.each do |key, val|
-            stringified_mappings[key.to_s] = val
-          end
-
-          stringified_mappings
+        stringified_mappings = {}
+        mappings.each do |key, val|
+          stringified_mappings[key.to_s] = val
         end
 
+        stringified_mappings
+      end
     end
-
   end
 end
