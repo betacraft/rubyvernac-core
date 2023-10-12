@@ -70,7 +70,7 @@ RSpec.describe Rubyvernac::Utils::FileHandler do
     end
 
     it "returns files in a directory" do
-      expect(subject.list_files(@file_dir)).to eq(@paths)
+      expect(subject.list_files(@file_dir).sort).to eq(@paths)
     end
 
     after :all do

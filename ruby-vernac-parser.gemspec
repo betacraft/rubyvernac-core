@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Write a short summary, because RubyGems requires one."
   spec.homepage = "https://github.com/betacraft/ruby-vernac-parser"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.metadata["homepage_uri"] = "https://github.com/betacraft/ruby-vernac-parser"
   spec.metadata["source_code_uri"] = "https://github.com/betacraft/ruby-vernac-parser"

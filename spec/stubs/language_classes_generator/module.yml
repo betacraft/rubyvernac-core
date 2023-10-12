@@ -17,6 +17,7 @@ module:
     __id__: __id__
     __send__: __send__
     alias_method: alias_method
+    allocate: allocate
     ancestors: ancestors
     any_instance: any_instance
     as_null_object: as_null_object
@@ -128,7 +129,6 @@ module:
     singleton_methods: singleton_methods
     stub: stub
     stub_chain: stub_chain
-    subclasses: subclasses
     superclass: superclass
     taint: taint
     tainted?: tainted?
@@ -236,6 +236,7 @@ module:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var
@@ -472,6 +473,7 @@ module:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var

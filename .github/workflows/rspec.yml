@@ -9,6 +9,7 @@ jobs:
       with:
         ruby-version: '2.7'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    # - run: bundle exec rake
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
+    - run: bundle exec rake
+    # Follow steps to debug => https://til.simonwillison.net/github-actions/debug-tmate
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v3
