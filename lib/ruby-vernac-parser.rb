@@ -1,18 +1,18 @@
-require 'forwardable'
-require 'yaml'
+require "forwardable"
+require "yaml"
 
-require_relative "./rubyvernac/parser/language_parser"
-require_relative "./rubyvernac/parser/language_alias_loader"
+require_relative "rubyvernac/parser/language_parser"
+require_relative "rubyvernac/parser/language_alias_loader"
 
 class RubyVernacParser
   extend Forwardable
 
   def_delegators :@language_alias_loader, :create_aliases
   attr_reader :keywords, :input_bytes, :message_text,
-              :source_file, :language, :keywords_file
+    :source_file, :language, :keywords_file
 
   def initialize(source_file: nil, language: "ruby",
-                 keywords_file: nil, message_text: false)
+    keywords_file: nil, message_text: false)
     # @args = ARGV
     @source_file = source_file
     @message_text = message_text
@@ -46,7 +46,7 @@ class RubyVernacParser
       File.delete(temp_file_path) if File.exist?(temp_file_path)
     end
     print "Script Output - \n" if message_text
-    print "#{output}"
+    print output
   end
 
   def parse
@@ -64,47 +64,44 @@ class RubyVernacParser
   end
 
   def read_input_file
-    begin
-      @input_bytes = File.read(source_file)
-    rescue => err
-      print "Error reading input file, #{err}\n"
-      raise
-    end
+    @input_bytes = File.read(source_file)
+  rescue => err
+    print "Error reading input file, #{err}\n"
+    raise
   end
 
   def read_keywords
-    _keywords = YAML.load_file(@keywords_file)
+    keywords = YAML.load_file(@keywords_file)
 
-    _keywords.each do |keyword_in_eng, keyword_in_non_eng|
+    keywords.each do |keyword_in_eng, keyword_in_non_eng|
       @keywords[keyword_in_non_eng.to_s] = keyword_in_eng.to_s
     end
   end
 
   def parsed_string
     @parsed_string ||= Rubyvernac::Parser::LanguageParser.run(
-                          byte_string: input_bytes,
-                          keywords: keywords,
-                          language: language
-                        )
+      byte_string: input_bytes,
+      keywords: keywords,
+      language: language
+    )
   end
 
   def command
-    @command ||=   case language
-                    when "ruby"
-                      "ruby"
-                    else
-                      "run"
-                    end
+    @command ||= case language
+    when "ruby"
+      "ruby"
+    else
+      "run"
+    end
   end
 
   def temp_file_path
-    @temp_file_path ||= (
+    @temp_file_path ||= begin
       file_path = "#{source_file}.tmp"
-      File.open(file_path, 'w') { |file| file.write(parsed_string) }
+      File.write(file_path, parsed_string)
       file_path
-    )
+    end
 
     @temp_file_path
   end
-
 end

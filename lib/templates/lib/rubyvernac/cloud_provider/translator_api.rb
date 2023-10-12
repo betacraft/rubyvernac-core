@@ -1,9 +1,8 @@
-require_relative 'gcp/google_translator_api'
+require_relative "gcp/google_translator_api"
 
-require 'forwardable'
+require "forwardable"
 
 module Rubyvernac
-
   module CloudProvider
     class TranslatorApi
       extend Forwardable
@@ -13,8 +12,6 @@ module Rubyvernac
       def initialize(cloud_provider: Gcp::GoogleTranslatorApi.instance)
         @cloud_provider = cloud_provider
       end
-
     end
   end
-
 end

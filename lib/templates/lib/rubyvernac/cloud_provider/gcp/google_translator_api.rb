@@ -1,10 +1,9 @@
 require "google/cloud/translate/v3"
-require 'dotenv/load'
+require "dotenv/load"
 
 module Rubyvernac
   module CloudProvider
     module Gcp
-
       class GoogleTranslatorApi
         @instance_mutex = Mutex.new
         private_class_method :new
@@ -29,32 +28,27 @@ module Rubyvernac
           response = make_translate_text_request(word, target_language_code)
           translated_word = response.translations.first&.translated_text || ""
 
-          #replace spaces -
-          translated_word = translated_word.gsub(/ |\./, '_')
+          # replace spaces -
+          translated_word.gsub(/ |\./, "_")
 
           # # return none if it's only latin -
           # !!translated_word.match(/^[a-zA-Z0-9_\-+? ]*$/) ?
           #   '' :
           #   translated_word
-
-          translated_word
         end
 
         private
-          def make_translate_text_request(word, target_language_code)
-            request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
-              contents: ["#{word}"],
-              source_language_code: :en,
-              target_language_code: target_language_code,
-              parent: ENV["GOOGLE_PROJECT_ID"]
-            )
-            response = @client.translate_text(request)
 
-            response
-          end
-
+        def make_translate_text_request(word, target_language_code)
+          request = ::Google::Cloud::Translate::V3::TranslateTextRequest.new(
+            contents: [word.to_s],
+            source_language_code: :en,
+            target_language_code: target_language_code,
+            parent: ENV["GOOGLE_PROJECT_ID"]
+          )
+          @client.translate_text(request)
+        end
       end
-
     end
   end
 end

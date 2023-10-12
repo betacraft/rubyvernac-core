@@ -1,17 +1,16 @@
-require_relative '../utils/file_handler'
-require 'yaml'
+require_relative "../utils/file_handler"
+require "yaml"
 
 module Rubyvernac
   module Generators
-
     class LanguageClassesGenerator
       CONFIG = {
         classes: ["Array", "Class", "Object", "Integer", "Math", "Module"],
         methods: {
-          public_methods: 'cpumethods',
-          private_methods: 'cprmethods',
-          instance_methods: 'ipumethods',
-          private_instance_methods: 'iprmethods'
+          public_methods: "cpumethods",
+          private_methods: "cprmethods",
+          instance_methods: "ipumethods",
+          private_instance_methods: "iprmethods"
         }
       }.freeze
 
@@ -30,7 +29,7 @@ module Rubyvernac
 
           # place to keep class's name -
           content[class_name] = content[class_name] || {}
-          content[class_name]['cname'] = klass.name
+          content[class_name]["cname"] = klass.name
 
           class_name = klass.name.downcase
           CONFIG[:methods].each do |method, key|
@@ -44,8 +43,6 @@ module Rubyvernac
           @file_handler.append_to_file(translations_path, content.to_yaml)
         end
       end
-
     end
-
   end
 end

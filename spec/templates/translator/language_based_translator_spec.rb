@@ -1,15 +1,14 @@
 RSpec.describe Rubyvernac::Translator::LanguageBasedTranslator do
-
   describe "#generate_translations" do
     before :all do
-      ENV['STUB_CLOUD_APIS'] = 'true'
+      ENV["STUB_CLOUD_APIS"] = "true"
     end
 
     it "generates translations" do
-      ['array.yml', 'class.yml', 'integer.yml', 'math.yml', 'module.yml', 'object.yml'].each do |filename|
+      ["array.yml", "class.yml", "integer.yml", "math.yml", "module.yml", "object.yml"].each do |filename|
         instance = Rubyvernac::Translator::LanguageBasedTranslator.new(
-          lang_code: 'hi',
-          translations_path: Dir.pwd + '/spec/stubs',
+          lang_code: "hi",
+          translations_path: Dir.pwd + "/spec/stubs",
           filename: filename
         )
 
@@ -41,5 +40,4 @@ RSpec.describe Rubyvernac::Translator::LanguageBasedTranslator do
       end
     end
   end
-
 end
