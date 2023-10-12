@@ -15,7 +15,7 @@ RSpec.describe Rubyvernac::Generators::LanguageClassesGenerator do
     it "generates translation files for ruby classes" do
       subject.generate_class_files
 
-      ['array.yml'].each do |file|
+      ['array.yml', 'class.yml', 'integer.yml', 'math.yml', 'module.yml', 'object.yml'].each do |file|
         generated = YAML.load_file(Dir.pwd + '/spec/stubs/gem_path/lib/translations/classes/' + file)
         orig = YAML.load_file(Dir.pwd + '/spec/stubs/language_classes_generator/' + file)
 
