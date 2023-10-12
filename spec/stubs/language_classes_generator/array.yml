@@ -129,7 +129,6 @@ array:
     singleton_methods: singleton_methods
     stub: stub
     stub_chain: stub_chain
-    subclasses: subclasses
     superclass: superclass
     taint: taint
     tainted?: tainted?
@@ -237,6 +236,7 @@ array:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var
@@ -339,7 +339,6 @@ array:
     instance_variable_get: instance_variable_get
     instance_variable_set: instance_variable_set
     instance_variables: instance_variables
-    intersect?: intersect?
     intersection: intersection
     is_a?: is_a?
     itself: itself
@@ -532,6 +531,7 @@ array:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var

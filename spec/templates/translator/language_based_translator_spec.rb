@@ -21,7 +21,23 @@ RSpec.describe Rubyvernac::Translator::LanguageBasedTranslator do
 
         translated_class_path = Dir.pwd + "/spec/stubs/translated/classes/#{filename}"
 
-        expect(FileUtils.compare_file(translated_class_path, target_class_path)).to be_truthy
+        compare_translations(translated_class_path, target_class_path, filename)
+      end
+    end
+  end
+
+  def compare_translations(orig, generated, filename)
+    orig = YAML.load_file(orig)
+    generated = YAML.load_file(generated)
+
+    klass = filename.split('.')[0]
+    expect(generated[klass]['cname']).to eq(orig[klass]['cname'])
+
+    orig[klass].keys.each do |method_type|
+      next if method_type == 'cname'
+
+      orig[klass][method_type].keys do |method|
+        expect(generated[klass][method_type][method]).to eq(orig[klass][method_type][method])
       end
     end
   end

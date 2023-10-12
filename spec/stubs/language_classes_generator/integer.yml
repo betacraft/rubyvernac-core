@@ -128,7 +128,6 @@ integer:
     sqrt: sqrt
     stub: stub
     stub_chain: stub_chain
-    subclasses: subclasses
     superclass: superclass
     taint: taint
     tainted?: tainted?
@@ -139,7 +138,6 @@ integer:
     to_s: to_s
     to_yaml: to_yaml
     trust: trust
-    try_convert: try_convert
     undef_method: undef_method
     unstub: unstub
     untaint: untaint
@@ -236,6 +234,7 @@ integer:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var
@@ -482,6 +481,7 @@ integer:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var

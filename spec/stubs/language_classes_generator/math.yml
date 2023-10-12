@@ -258,6 +258,7 @@ math:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var

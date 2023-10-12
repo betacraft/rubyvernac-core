@@ -129,7 +129,6 @@ class:
     singleton_methods: singleton_methods
     stub: stub
     stub_chain: stub_chain
-    subclasses: subclasses
     superclass: superclass
     taint: taint
     tainted?: tainted?
@@ -237,6 +236,7 @@ class:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var
@@ -369,7 +369,6 @@ class:
     singleton_methods: singleton_methods
     stub: stub
     stub_chain: stub_chain
-    subclasses: subclasses
     superclass: superclass
     taint: taint
     tainted?: tainted?
@@ -475,6 +474,7 @@ class:
     system: system
     test: test
     throw: throw
+    timeout: timeout
     trace_var: trace_var
     trap: trap
     untrace_var: untrace_var
