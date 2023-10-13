@@ -2,20 +2,11 @@ module Rubyvernac
   module Parser
 
     class LanguageParser
-      attr_reader :byte_string, :keywords, :language
 
-      def self.run(byte_string: "", keywords: {}, language: "")
-        new(byte_string, keywords, language).run
-      end
-
-      def initialize(byte_string, keywords, language)
+      def initialize
         @processed_string_buffer = ""
         @keywords_found = 0
         @class_names = []
-
-        @byte_string = byte_string
-        @keywords = keywords
-        @language = language
       end
 
       def parse(byte_string:, keywords:, language:)
