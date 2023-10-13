@@ -14,8 +14,8 @@ module Rubyvernac
         @translations_path = translations_path + '/classes'
         @filename = filename
 
-        if ENV['STUB_CLOUD_APIS'] == 'true'
-          @translator_api = CloudProvider::StubbedTranslatorApi.new
+        if ENV['STUBBED_TRANSLATIONS']
+          @translator_api = CloudProvider::StubbedTranslatorApi.new(stubbed_translations: ENV['STUBBED_TRANSLATIONS'])
         else
           @translator_api = CloudProvider::TranslatorApi.new
         end

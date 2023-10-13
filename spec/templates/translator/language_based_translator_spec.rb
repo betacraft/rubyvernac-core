@@ -2,7 +2,7 @@ RSpec.describe Rubyvernac::Translator::LanguageBasedTranslator do
 
   describe "#generate_translations" do
     before :all do
-      ENV['STUB_CLOUD_APIS'] = 'true'
+      ENV['STUBBED_TRANSLATIONS'] = 'lib/templates/lib/rubyvernac/stubs'
     end
 
     it "generates translations" do
