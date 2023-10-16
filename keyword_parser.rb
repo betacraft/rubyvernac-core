@@ -1,6 +1,6 @@
-require_relative "./lib/ruby-vernac-parser"
+require_relative "./lib/rubyvernac-core"
 
-RubyVernacParser.new(
+RubyvernacCore.new(
   source_file: ARGV[0],
   language: ARGV[1],
   keywords_file: ARGV[2],

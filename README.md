@@ -1,4 +1,4 @@
-# ruby-vernac-parser
+# rubyvernac-core
 
 ## Installation
 
@@ -11,9 +11,9 @@ Install dependencies:
 
 
    ```ruby
-    require "ruby-vernac-parser"
+    require "rubyvernac-core"
     
-    parser = RubyVernacParser.new(source_file: <path to source>,
+    parser = RubyvernacCore.new(source_file: <path to source>,
       language: <programing-language: "ruby">, keywords_file: <path to keywords file>)
      
     parser.execute #Execute the parsed script

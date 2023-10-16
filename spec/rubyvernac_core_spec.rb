@@ -1,6 +1,6 @@
-RSpec.describe RubyVernacParser do
+RSpec.describe RubyvernacCore do
   subject do
-    RubyVernacParser.new(
+    RubyvernacCore.new(
       source_file: Dir.pwd + '/spec/stubs/ruby_vernac_parser/example.rb',
       keywords_file: Dir.pwd + '/spec/stubs/ruby_vernac_parser/keywords.yml'
     )
@@ -13,7 +13,7 @@ RSpec.describe RubyVernacParser do
   end
 
   describe "#execute" do
-    it "" do
+    it "executes a script in non eng language" do
       expect{ subject.execute }.to output("Script Output -\n२ सरकार।\n").to_stdout
     end
   end
