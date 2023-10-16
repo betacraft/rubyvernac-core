@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-vernac-parser (0.0.1)
+    rubyvernac-core (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -97,7 +97,7 @@ DEPENDENCIES
   rspec (~> 3.12)
   rspec-expectations (~> 3.12)
   rspec-mocks (~> 3.12)
-  ruby-vernac-parser!
+  rubyvernac-core!
   yaml (~> 0.2.0)
 
 BUNDLED WITH
