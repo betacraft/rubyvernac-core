@@ -12,8 +12,8 @@ module Rubyvernac
 
       def initialize(lang_code: , translations_path:, filename:)
         @lang_code = lang_code
-        if ENV['STUB_CLOUD_APIS'] == 'true'
-          @translator_api = Rubyvernac::CloudProvider::StubbedTranslatorApi.new
+        if ENV['STUBBED_TRANSLATIONS']
+          @translator_api = Rubyvernac::CloudProvider::StubbedTranslatorApi.new(stubbed_translations: ENV['STUBBED_TRANSLATIONS'])
         else
           @translator_api = Rubyvernac::CloudProvider::TranslatorApi.new
         end

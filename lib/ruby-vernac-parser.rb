@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'open3'
 
 require_relative "./rubyvernac/parser/language_parser"
 require_relative "./rubyvernac/parser/language_alias_loader"
@@ -26,36 +27,51 @@ class RubyVernacParser
     translated_code = translate_code
 
     write_to_temp_file(translated_code)
-    # running script
-    begin
-      output = `#{command} #{temp_file_path}`
-    rescue => err
-      print "Error running script- #{err}"
-      return
-    ensure
-      @file_handler.delete_file(temp_file_path)
-    end
-    print "Script Output - \n"
-    print "#{output}"
+
+    output = run_ruby_subprocess
+
+    puts "Script Output -"
+    puts "#{output}"
   end
 
   def parse
     translated_code = translate_code
 
     print "Parsed code -\n#{translated_code}"
+    translated_code
   end
 
   private
 
   def translate_code
     source = @file_handler.read_file(@source_file)
-    keywords = @yaml_handler.stringified_load_file(@keywords_file)
+    keywords = load_keywords(@keywords_file)
 
     @parser.parse(
       byte_string: source,
       keywords: keywords,
-      language: language
+      language: @language
     )
+  end
+
+  def load_keywords(keywords_file)
+    keywords = @yaml_handler.stringified_load_file(keywords_file)
+    inverted_keywords = {}
+
+    keywords.each do |keyword_in_eng, keyword_in_non_eng|
+      inverted_keywords[keyword_in_non_eng.to_s] = keyword_in_eng.to_s
+    end
+
+    inverted_keywords
+  end
+
+  def run_ruby_subprocess
+    stdout, stderr, status = Open3.capture3(command, temp_file_path)
+    @file_handler.delete_file(temp_file_path)
+
+    raise "Error running script - #{stderr}" if !status.success?
+
+    stdout
   end
 
   def write_to_temp_file(content)
@@ -63,11 +79,13 @@ class RubyVernacParser
   end
 
   def temp_file_path
-    "#{@source_file}.tmp"
+    filepath, extension = @source_file.split('.')
+
+    "#{filepath}.tmp.#{extension}"
   end
 
   def command
-    @command ||=   case language
+    @command ||=   case @language
                     when "ruby"
                       "ruby"
                     else
