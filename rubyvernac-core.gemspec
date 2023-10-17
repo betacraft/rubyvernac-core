@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require_relative "lib/ruby-vernac-parser"
+require_relative "lib/rubyvernac-core"
 
 Gem::Specification.new do |spec|
-  spec.name = "ruby-vernac-parser"
+  spec.name = "rubyvernac-core"
   spec.version = "0.0.1"
   spec.authors = ["Mathew Thomas"]
   spec.email = ["mathew@betacraft.io"]
 
   spec.summary = "Write a short summary, because RubyGems requires one."
-  spec.homepage = "https://github.com/betacraft/ruby-vernac-parser"
+  spec.homepage = "https://github.com/betacraft/rubyvernac-core"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.7"
 
-  spec.metadata["homepage_uri"] = "https://github.com/betacraft/ruby-vernac-parser"
-  spec.metadata["source_code_uri"] = "https://github.com/betacraft/ruby-vernac-parser"
+  spec.metadata["homepage_uri"] = "https://github.com/betacraft/rubyvernac-core"
+  spec.metadata["source_code_uri"] = "https://github.com/betacraft/rubyvernac-core"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

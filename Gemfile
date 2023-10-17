@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in ruby-vernac-parser.gemspec
+# Specify your gem's dependencies in rubyvernac-core.gemspec
 gemspec
 
 gem 'rake', '~> 10.3.2'

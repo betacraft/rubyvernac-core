@@ -6,7 +6,7 @@ require_relative "./rubyvernac/parser/language_alias_loader"
 require_relative "./rubyvernac/utils/file_handler"
 require_relative "./rubyvernac/utils/yaml_handler"
 
-class RubyVernacParser
+class RubyvernacCore
   extend Forwardable
 
   def_delegators :@language_alias_loader, :create_aliases

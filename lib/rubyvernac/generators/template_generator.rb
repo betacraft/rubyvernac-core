@@ -50,9 +50,9 @@ module Rubyvernac
 
         # Replaces template file path with gem path:
         #
-        #   "~/ruby-vernac-parser/lib/templates/Gemfile"
+        #   "~/rubyvernac-core/lib/templates/Gemfile"
         #   becomes
-        #   "~/ruby-vernac-parser/new_gems/rubyvernac-hindi/Gemfile"
+        #   "~/rubyvernac-core/new_gems/rubyvernac-hindi/Gemfile"
         #   replacing /lib/templates with /new_gems/rubyvernac-hindi
         #
         # this preserves the sub path of the file in templates folder.

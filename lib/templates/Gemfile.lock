@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/betacraft/ruby-vernac-parser
+  remote: https://github.com/betacraft/rubyvernac-core
   revision: aee855a404e6d6ae8a98de2ca00280c8f414b5ef
   branch: main
   specs:
-    ruby-vernac-parser (0.0.1)
+    rubyvernac-core (0.0.1)
 
 PATH
   remote: .
@@ -80,7 +80,7 @@ DEPENDENCIES
   google-cloud-translate-v3 (~> 0.5)
   pry-nav (~> 1.0)
   rake (~> 13.0)
-  ruby-vernac-parser!
+  rubyvernac-core!
   rubyvernac-hindi!
   yaml (~> 0.2)
 
