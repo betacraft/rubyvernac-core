@@ -26,6 +26,10 @@ module Rubyvernac
         File.read(abs_path)
       end
 
+      def delete_file(abs_path)
+        File.delete(abs_path) if File.exist?(abs_path)
+      end
+
       def extract_filename_from_path(abs_path)
         File.basename(abs_path)
       end

@@ -1,41 +1,31 @@
 require 'forwardable'
-require 'yaml'
 
 require_relative "./rubyvernac/parser/language_parser"
 require_relative "./rubyvernac/parser/language_alias_loader"
+require_relative "./rubyvernac/utils/file_handler"
+require_relative "./rubyvernac/utils/yaml_handler"
 
 class RubyVernacParser
   extend Forwardable
 
   def_delegators :@language_alias_loader, :create_aliases
-  attr_reader :keywords, :input_bytes, :message_text,
-              :source_file, :language, :keywords_file
 
-  def initialize(source_file: nil, language: "ruby",
-                 keywords_file: nil, message_text: false)
-    # @args = ARGV
+  def initialize(source_file: nil, language: "ruby", keywords_file: nil)
     @source_file = source_file
-    @message_text = message_text
-    @language = language
     @keywords_file = keywords_file
-    @keywords = {}
 
+    @file_handler = Rubyvernac::Utils::FileHandler.new
+    @yaml_handler = Rubyvernac::Utils::YamlHandler.new
+    @parser = Rubyvernac::Parser::LanguageParser.new
+
+    @language = language
     @language_alias_loader = Rubyvernac::Parser::LanguageAliasLoader.new
-    begin
-      # validate_args
-      read_input_file if @source_file
-      read_keywords if @keywords_file
-    rescue
-      @error = true # Do nothing and stop execution
-    end
   end
 
   def execute
-    return if @error
-    if source_file.nil? || keywords_file.nil?
-      raise "Arguments - source_file, keywords_file\n"
-    end
+    translated_code = translate_code
 
+    write_to_temp_file(translated_code)
     # running script
     begin
       output = `#{command} #{temp_file_path}`
@@ -43,49 +33,37 @@ class RubyVernacParser
       print "Error running script- #{err}"
       return
     ensure
-      File.delete(temp_file_path) if File.exist?(temp_file_path)
+      @file_handler.delete_file(temp_file_path)
     end
-    print "Script Output - \n" if message_text
+    print "Script Output - \n"
     print "#{output}"
   end
 
   def parse
-    return if @error
-    print "Parsed code -\n#{parsed_string}"
+    translated_code = translate_code
+
+    print "Parsed code -\n#{translated_code}"
   end
 
   private
 
-  def validate_args
-    if args.size != 3
-      print "Arguments - parser source_file language keywords_file\n"
-      raise
-    end
+  def translate_code
+    source = @file_handler.read_file(@source_file)
+    keywords = @yaml_handler.stringified_load_file(@keywords_file)
+
+    @parser.parse(
+      byte_string: source,
+      keywords: keywords,
+      language: language
+    )
   end
 
-  def read_input_file
-    begin
-      @input_bytes = File.read(source_file)
-    rescue => err
-      print "Error reading input file, #{err}\n"
-      raise
-    end
+  def write_to_temp_file(content)
+    @file_handler.write_to_file(temp_file_path, content)
   end
 
-  def read_keywords
-    _keywords = YAML.load_file(@keywords_file)
-
-    _keywords.each do |keyword_in_eng, keyword_in_non_eng|
-      @keywords[keyword_in_non_eng.to_s] = keyword_in_eng.to_s
-    end
-  end
-
-  def parsed_string
-    @parsed_string ||= Rubyvernac::Parser::LanguageParser.run(
-                          byte_string: input_bytes,
-                          keywords: keywords,
-                          language: language
-                        )
+  def temp_file_path
+    "#{@source_file}.tmp"
   end
 
   def command
@@ -95,16 +73,6 @@ class RubyVernacParser
                     else
                       "run"
                     end
-  end
-
-  def temp_file_path
-    @temp_file_path ||= (
-      file_path = "#{source_file}.tmp"
-      File.open(file_path, 'w') { |file| file.write(parsed_string) }
-      file_path
-    )
-
-    @temp_file_path
   end
 
 end

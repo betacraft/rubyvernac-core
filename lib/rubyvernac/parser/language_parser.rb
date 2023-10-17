@@ -18,7 +18,7 @@ module Rubyvernac
         @language = language
       end
 
-      def run
+      def parse(byte_string:, keywords:, language:)
         case language
         when "ruby"
           line_comment_string = "#"
